@@ -11,7 +11,32 @@
 		57F3157F22608C98000D6B77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157E22608C98000D6B77 /* ViewController.swift */; };
 		57F3158122608C98000D6B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F3158022608C98000D6B77 /* Assets.xcassets */; };
 		57F3158422608C98000D6B77 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F3158222608C98000D6B77 /* Main.storyboard */; };
+		57F3159D22608D1A000D6B77 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		57F3159E22608D1A000D6B77 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159722608D1A000D6B77 /* PrefsViewController.swift */; };
+		57F3159F22608D1A000D6B77 /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159822608D1A000D6B77 /* OpenGLView.swift */; };
+		57F315A022608D1A000D6B77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159922608D1A000D6B77 /* BaseView.swift */; };
+		57F315A122608D1A000D6B77 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		57F315A222608D1A000D6B77 /* NativePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159B22608D1A000D6B77 /* NativePlayer.swift */; };
+		57F315AC22609065000D6B77 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AA22609065000D6B77 /* MediaFramework.framework */; };
+		57F315AD22609065000D6B77 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AA22609065000D6B77 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57F315AE22609065000D6B77 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AB22609065000D6B77 /* ABE.framework */; };
+		57F315AF22609065000D6B77 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AB22609065000D6B77 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		57F315A922609055000D6B77 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				57F315AD22609065000D6B77 /* MediaFramework.framework in Embed Frameworks */,
+				57F315AF22609065000D6B77 /* ABE.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		57F3157922608C98000D6B77 /* mpx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mpx.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -21,6 +46,13 @@
 		57F3158322608C98000D6B77 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57F3158522608C98000D6B77 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57F3158622608C98000D6B77 /* mpx.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = mpx.entitlements; sourceTree = "<group>"; };
+		57F3159722608D1A000D6B77 /* PrefsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
+		57F3159822608D1A000D6B77 /* OpenGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
+		57F3159922608D1A000D6B77 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		57F3159B22608D1A000D6B77 /* NativePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlayer.swift; sourceTree = "<group>"; };
+		57F3159C22608D1A000D6B77 /* mpx-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mpx-Bridging-Header.h"; sourceTree = "<group>"; };
+		57F315AA22609065000D6B77 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaFramework.framework; sourceTree = "<group>"; };
+		57F315AB22609065000D6B77 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ABE.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,6 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F315AC22609065000D6B77 /* MediaFramework.framework in Frameworks */,
+				57F315AE22609065000D6B77 /* ABE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,6 +71,8 @@
 		57F3157022608C98000D6B77 = {
 			isa = PBXGroup;
 			children = (
+				57F315AB22609065000D6B77 /* ABE.framework */,
+				57F315AA22609065000D6B77 /* MediaFramework.framework */,
 				57F3157B22608C98000D6B77 /* mpx */,
 				57F3157A22608C98000D6B77 /* Products */,
 			);
@@ -55,6 +91,11 @@
 			children = (
 				57F3157C22608C98000D6B77 /* AppDelegate.swift */,
 				57F3157E22608C98000D6B77 /* ViewController.swift */,
+				57F3159922608D1A000D6B77 /* BaseView.swift */,
+				57F3159C22608D1A000D6B77 /* mpx-Bridging-Header.h */,
+				57F3159B22608D1A000D6B77 /* NativePlayer.swift */,
+				57F3159822608D1A000D6B77 /* OpenGLView.swift */,
+				57F3159722608D1A000D6B77 /* PrefsViewController.swift */,
 				57F3158022608C98000D6B77 /* Assets.xcassets */,
 				57F3158222608C98000D6B77 /* Main.storyboard */,
 				57F3158522608C98000D6B77 /* Info.plist */,
@@ -73,6 +114,7 @@
 				57F3157522608C98000D6B77 /* Sources */,
 				57F3157622608C98000D6B77 /* Frameworks */,
 				57F3157722608C98000D6B77 /* Resources */,
+				57F315A922609055000D6B77 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,8 +175,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F3159D22608D1A000D6B77 /* (null) in Sources */,
+				57F315A222608D1A000D6B77 /* NativePlayer.swift in Sources */,
 				57F3157F22608C98000D6B77 /* ViewController.swift in Sources */,
 				57F3157D22608C98000D6B77 /* AppDelegate.swift in Sources */,
+				57F315A022608D1A000D6B77 /* BaseView.swift in Sources */,
+				57F315A122608D1A000D6B77 /* (null) in Sources */,
+				57F3159F22608D1A000D6B77 /* OpenGLView.swift in Sources */,
+				57F3159E22608D1A000D6B77 /* PrefsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +257,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "mpx/mpx-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -263,6 +312,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "mpx/mpx-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -275,11 +325,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9FY6WA76LN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = mpx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtdcy.mpx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -294,11 +349,16 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9FY6WA76LN;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = mpx/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtdcy.mpx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
