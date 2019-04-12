@@ -12,12 +12,12 @@ class PrefsViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("Prefs View Did Load")
+        print("Prefs View Did Load")
     }
     
     override func viewWillDisappear() {
         super.viewWillDisappear()
-        NSLog("Prefs View Will Disappear")
+        print("Prefs View Will Disappear")
     }
     
     // move window by background
@@ -26,7 +26,7 @@ class PrefsViewController: NSViewController {
     }
     
     @IBAction func close(sender : Any) {
-        NSLog("Close Prefs Window...")
+        print("Close Prefs Window...")
         self.view.window?.performClose(nil)
     }
 }

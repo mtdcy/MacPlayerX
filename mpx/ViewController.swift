@@ -13,15 +13,21 @@ class ViewController: NSViewController {
     @IBOutlet var mBaseView: BaseView!
     @IBOutlet weak var mOpenGLView: OpenGLView!
     
+    @IBOutlet weak var mPositionStack: NSStackView!
+    @IBOutlet weak var mCurrentPosition: NSTextField!
+    @IBOutlet weak var mTotalDuration: NSTextField!
+    @IBOutlet weak var mPositionSlider: NSSlider!
+    
+    
     var mNativePLayer = NativePlayer()
     var mIsLoaded : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("View Did Load")
+        print("View Did Load")
         
         // setup OpenGL Context
-        NSLog("OpenGLContext: %@", mOpenGLView.openGLContext!)
+        print("OpenGLContext: ", mOpenGLView.openGLContext!)
         mOpenGLView.prepareOpenGL()
         
         // not working, but still put this line
@@ -31,8 +37,12 @@ class ViewController: NSViewController {
     override func viewWillDisappear() {
         closeFile()
         
-        NSLog("View Will Disappear")
+        print("View Will Disappear")
         super.viewWillDisappear()
+        
+        // close application on player gone
+        // this line should only exists in one place in the application
+        NSApplication.shared.terminate(self)
     }
 
     override var representedObject: Any? {
@@ -42,7 +52,7 @@ class ViewController: NSViewController {
     }
     
     func openFile() {
-        NSLog("Open File...")
+        print("Open File...")
         
         let dialog = NSOpenPanel()
         dialog.title                = "Open File..."
@@ -56,16 +66,16 @@ class ViewController: NSViewController {
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
             if (dialog.url != nil) {
                 let url = dialog.url!.path
-                NSLog("url = %@", url)
+                print("url = ", url)
                 
                 mNativePLayer.clear()
                 mNativePLayer.setup(url: url)
-                mNativePLayer.prepare(us: 0)
+                mNativePLayer.prepare(seconds: 0)
                 
                 mIsLoaded = true
             }
         } else {
-            NSLog("Cancel Open File...")
+            print("Cancel Open File...")
         }
     }
     
@@ -75,7 +85,7 @@ class ViewController: NSViewController {
     }
     
     override func keyDown(with event: NSEvent) {
-        NSLog("keyDown: %@", event)
+        print("keyDown: ", event)
         
         let c = event.charactersIgnoringModifiers
         if (c == "o") {
@@ -84,7 +94,8 @@ class ViewController: NSViewController {
             if (mIsLoaded == false) {
                 openFile()
             }
-            mNativePLayer.startOrPause()
+            if (mNativePLayer.startOrPause() == true) {
+            }
         } else if (c == "q") {
             closeFile()
         }
@@ -101,8 +112,7 @@ class ViewController: NSViewController {
     }
 
     @IBAction func close(sender : Any) {
-        //self.view.window?.performClose(nil)
-        NSApplication.shared.terminate(self)
+        self.view.window?.performClose(nil)
     }
 }
 

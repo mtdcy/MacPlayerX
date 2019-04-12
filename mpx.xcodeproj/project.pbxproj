@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5763346E2260E0110059C5B6 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346C2260E0110059C5B6 /* ABE.framework */; };
+		5763346F2260E0110059C5B6 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346C2260E0110059C5B6 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		576334702260E0110059C5B6 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346D2260E0110059C5B6 /* MediaFramework.framework */; };
+		576334712260E0110059C5B6 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346D2260E0110059C5B6 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57F3157D22608C98000D6B77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157C22608C98000D6B77 /* AppDelegate.swift */; };
 		57F3157F22608C98000D6B77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157E22608C98000D6B77 /* ViewController.swift */; };
 		57F3158122608C98000D6B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F3158022608C98000D6B77 /* Assets.xcassets */; };
@@ -17,10 +21,6 @@
 		57F315A022608D1A000D6B77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159922608D1A000D6B77 /* BaseView.swift */; };
 		57F315A122608D1A000D6B77 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		57F315A222608D1A000D6B77 /* NativePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159B22608D1A000D6B77 /* NativePlayer.swift */; };
-		57F315AC22609065000D6B77 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AA22609065000D6B77 /* MediaFramework.framework */; };
-		57F315AD22609065000D6B77 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AA22609065000D6B77 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		57F315AE22609065000D6B77 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AB22609065000D6B77 /* ABE.framework */; };
-		57F315AF22609065000D6B77 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 57F315AB22609065000D6B77 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,8 +30,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				57F315AD22609065000D6B77 /* MediaFramework.framework in Embed Frameworks */,
-				57F315AF22609065000D6B77 /* ABE.framework in Embed Frameworks */,
+				576334712260E0110059C5B6 /* MediaFramework.framework in Embed Frameworks */,
+				5763346F2260E0110059C5B6 /* ABE.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,6 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5763346C2260E0110059C5B6 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ABE.framework; sourceTree = "<group>"; };
+		5763346D2260E0110059C5B6 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaFramework.framework; sourceTree = "<group>"; };
 		57F3157922608C98000D6B77 /* mpx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mpx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F3157C22608C98000D6B77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57F3157E22608C98000D6B77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,8 +53,6 @@
 		57F3159922608D1A000D6B77 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		57F3159B22608D1A000D6B77 /* NativePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlayer.swift; sourceTree = "<group>"; };
 		57F3159C22608D1A000D6B77 /* mpx-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mpx-Bridging-Header.h"; sourceTree = "<group>"; };
-		57F315AA22609065000D6B77 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaFramework.framework; sourceTree = "<group>"; };
-		57F315AB22609065000D6B77 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ABE.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57F315AC22609065000D6B77 /* MediaFramework.framework in Frameworks */,
-				57F315AE22609065000D6B77 /* ABE.framework in Frameworks */,
+				576334702260E0110059C5B6 /* MediaFramework.framework in Frameworks */,
+				5763346E2260E0110059C5B6 /* ABE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +71,8 @@
 		57F3157022608C98000D6B77 = {
 			isa = PBXGroup;
 			children = (
-				57F315AB22609065000D6B77 /* ABE.framework */,
-				57F315AA22609065000D6B77 /* MediaFramework.framework */,
+				5763346C2260E0110059C5B6 /* ABE.framework */,
+				5763346D2260E0110059C5B6 /* MediaFramework.framework */,
 				57F3157B22608C98000D6B77 /* mpx */,
 				57F3157A22608C98000D6B77 /* Products */,
 			);

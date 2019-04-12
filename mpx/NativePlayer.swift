@@ -17,7 +17,8 @@ typealias CFrameCallback = @convention(c)(MediaFrameRef?, UnsafeMutableRawPointe
 typealias CPositionCallback = @convention(c)(Int64, UnsafeMutableRawPointer?) -> Void
 
 class NativePlayer : NSObject {
-    var mHandle : MediaPlayerRef!
+    var mHandle : MediaPlayerRef?
+    var mClock : MediaClockRef?
     
     class MediaOutContext {
         var mMediaOut : MediaOutRef?
@@ -27,7 +28,7 @@ class NativePlayer : NSObject {
     var mMediaOutContext : MediaOutContext!
     
     override init() {
-        NSLog("NativePlayer init")
+        print("NativePlayer init")
         // setup log callback
         // https://originware.com/blog/?p=265
         let callback : CLogCallback = { (line : UnsafePointer<Int8>?) -> Void in
@@ -37,7 +38,7 @@ class NativePlayer : NSObject {
     }
     
     public func setup(url : String) {
-        NSLog("setup")
+        print("setup")
 
         clear()
         
@@ -45,7 +46,7 @@ class NativePlayer : NSObject {
         var options : MessageRef = SharedMessageCreate()
         let FrameCallback : CFrameCallback = { (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) -> Void in
             if (current == nil) {
-                NSLog("FrameCallback: nil MediaFrameRef")
+                print("FrameCallback: nil MediaFrameRef")
             } else {
                 //NSLog("FrameCallback");
                 let context : MediaOutContext = Unmanaged.fromOpaque(user!).takeUnretainedValue()
@@ -57,7 +58,7 @@ class NativePlayer : NSObject {
                     //NSLog("drawMediaFrame in main")
                     
                     if (context.mMediaFrame == nil) {
-                        NSLog("nil MediaFrame")
+                        print("nil MediaFrame")
                         if (context.mMediaOut != nil) {
                             MediaOutFlush(context.mMediaOut)
                         }
@@ -98,53 +99,63 @@ class NativePlayer : NSObject {
         let OnFrameUpdate : FrameEventRef = FrameEventCreate(FrameCallback, user)
         SharedMessagePutObject(options, "MediaFrameEvent", OnFrameUpdate)
         SharedObjectRelease(OnFrameUpdate)
-        
+
+/*
         let PositionCallback : CPositionCallback = { (pos : Int64, user : UnsafeMutableRawPointer?) -> Void in
             NSLog("PositionCallback")
         }
         let OnPositionUpdate : PositionEventRef = PositionEventCreate(PositionCallback, nil)
         SharedMessagePutObject(options, "RenderPositionEvent", OnPositionUpdate)
         SharedObjectRelease(OnPositionUpdate)
-        
+*/
         var media : MessageRef = SharedMessageCreate()
         SharedMessagePutString(media, "url", url)
         
-        NSLog("MediaPlayerCreate");
+        print("MediaPlayerCreate");
         mHandle = MediaPlayerCreate(media, options)
+        mClock = MediaClockGet(mHandle)
         
         // release refs
         SharedObjectRelease(options)
         SharedObjectRelease(media)
     }
     
-    public func prepare(us : Int64) {
+    public func progress() -> Double {
+        if (mClock == nil) {
+            return 0;
+        }
+        return Double(MediaClockGetTime(mClock)) / 1E6
+    }
+    
+    public func prepare(seconds : Double) {
         if (mHandle != nil) {
-            NSLog("MediaPlayerPrepare");
+            print("MediaPlayerPrepare");
             var options : MessageRef = SharedMessageCreate()
-            SharedMessagePutInt64(options, "MediaTime", us)
-            MediaPlayerPrepare(mHandle, options)
-            SharedObjectRelease(options)
+            MediaPlayerPrepare(mHandle, seconds)
         }
     }
     
-    public func startOrPause() {
+    public func startOrPause() -> Bool {
         if (mHandle != nil) {
             let state = MediaPlayerGetState(mHandle)
             if (state == kStatePlaying) {
-                NSLog("MediaPlayerPause");
+                print("MediaPlayerPause");
                 MediaPlayerPause(mHandle)
+                return false
             } else if (state == kStateReady || state == kStateIdle) {
-                NSLog("MediaPlayerStart");
+                print("MediaPlayerStart");
                 MediaPlayerStart(mHandle)
+                return true
             } else {
-                NSLog("MediaPlayer bad state")
+                print("MediaPlayer bad state")
             }
         }
+        return false
     }
     
     public func flush() {
         if (mHandle != nil) {
-            NSLog("MediaPlayerFlush");
+            print("MediaPlayerFlush");
             let state = MediaPlayerGetState(mHandle)
             if (state == kStatePlaying) {
                 MediaPlayerPause(mHandle)
@@ -155,7 +166,7 @@ class NativePlayer : NSObject {
     
     public func clear() {
         if (mHandle != nil) {
-            NSLog("MediaPlayerRelease");
+            print("MediaPlayerRelease");
             let state = MediaPlayerGetState(mHandle)
             if (state == kStatePlaying) {
                 MediaPlayerPause(mHandle)
