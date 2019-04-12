@@ -93,7 +93,8 @@ class ViewController: NSViewController {
     }
 
     @IBAction func close(sender : Any) {
-        self.view.window?.performClose(nil)
+        //self.view.window?.performClose(nil)
+        NSApplication.shared.terminate(self)
     }
 }
 
