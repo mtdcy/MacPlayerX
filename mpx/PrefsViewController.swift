@@ -20,6 +20,11 @@ class PrefsViewController: NSViewController {
         NSLog("Prefs View Will Disappear")
     }
     
+    // move window by background
+    override func mouseDragged(with event: NSEvent) {
+        self.view.window?.performDrag(with: event)
+    }
+    
     @IBAction func close(sender : Any) {
         NSLog("Close Prefs Window...")
         self.view.window?.performClose(nil)

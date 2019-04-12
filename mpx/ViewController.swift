@@ -23,6 +23,9 @@ class ViewController: NSViewController {
         // setup OpenGL Context
         NSLog("OpenGLContext: %@", mOpenGLView.openGLContext!)
         mOpenGLView.prepareOpenGL()
+        
+        // not working, but still put this line
+        self.view.window?.isMovableByWindowBackground = true
     }
     
     override func viewWillDisappear() {
@@ -71,8 +74,8 @@ class ViewController: NSViewController {
         mIsLoaded = false
     }
     
-    override func keyUp(with event: NSEvent) {
-        NSLog("keyUp: %@", event)
+    override func keyDown(with event: NSEvent) {
+        NSLog("keyDown: %@", event)
         
         let c = event.charactersIgnoringModifiers
         if (c == "o") {
@@ -86,6 +89,11 @@ class ViewController: NSViewController {
             closeFile()
         }
         
+    }
+    
+    // move window by background
+    override func mouseDragged(with event: NSEvent) {
+        self.view.window?.performDrag(with: event)
     }
     
     @IBAction func open(sender : Any) {

@@ -21,4 +21,11 @@ class OpenGLView: NSOpenGLView {
         }
     }
     
+    // not working but still put this
+    override var mouseDownCanMoveWindow : Bool {
+        get {
+            return false
+        }
+    }
+    
 }

@@ -21,4 +21,12 @@ class BaseView: NSView {
             return true
         }
     }
+    
+    // not working but still put this
+    override var mouseDownCanMoveWindow: Bool {
+        get {
+            return false
+        }
+    }
+    
 }
