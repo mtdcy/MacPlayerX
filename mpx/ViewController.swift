@@ -16,7 +16,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var mCurrentPosition: NSTextField!
     @IBOutlet weak var mTotalDuration: NSTextField!
     @IBOutlet weak var mPositionSlider: NSSlider!
-    @IBOutlet weak var mOpenGLText: NSTextField!
+    @IBOutlet weak var mInfoText: NSTextField!
     
     var mIsVisible : Bool?              // true, false, nil
     var mUpdater : Timer?
@@ -50,7 +50,7 @@ class ViewController: NSViewController {
         self.view.window?.isMovableByWindowBackground = true
         
         // init values
-        mOpenGLText.stringValue = "OpenGL"
+        mInfoText.stringValue = "OpenGL"
         
         // show UI at beginning
         showUI(visible: true)
@@ -101,9 +101,9 @@ class ViewController: NSViewController {
                 mPositionStack.isHidden = false
                 
                 if (mNativePLayer.isOpenGL == true) {
-                    mOpenGLText.isHidden = false
+                    mInfoText.isHidden = false
                     Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer : Timer) in
-                        self.mOpenGLText.isHidden = true
+                        self.mInfoText.isHidden = true
                         timer.invalidate()
                     }
                 }
@@ -132,7 +132,7 @@ class ViewController: NSViewController {
             NSLog("hideUI...")
             self.view.window?.titleVisibility = NSWindow.TitleVisibility.hidden
             mPositionStack.isHidden = true
-            mOpenGLText.isHidden = true
+            mInfoText.isHidden = true
             
             mUpdater?.invalidate()
             mUpdater = nil

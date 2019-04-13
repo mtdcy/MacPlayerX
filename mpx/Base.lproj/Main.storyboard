@@ -197,46 +197,41 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="mpx" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="BaseView" customModule="mpx" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="816" height="448"/>
+                        <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <openGLView wantsLayer="YES" useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="mpx" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="816" height="448"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                             </openGLView>
-                            <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="2" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFH-u5-TLe">
-                                <rect key="frame" x="0.0" y="0.0" width="816" height="41"/>
-                                <subviews>
-                                    <textField horizontalHuggingPriority="50" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pse-P7-Hqr">
-                                        <rect key="frame" x="10" y="12" width="99" height="17"/>
-                                        <textFieldCell key="cell" lineBreakMode="charWrapping" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="CurrentPosition" id="a53-N8-osU">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <allowedInputSourceLocales>
-                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                            </allowedInputSourceLocales>
-                                        </textFieldCell>
-                                    </textField>
-                                    <slider verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="e8f-zl-git">
-                                        <rect key="frame" x="107" y="11" width="615" height="19"/>
-                                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="rX5-hh-waB"/>
-                                        <connections>
-                                            <action selector="seekWithSender:" target="XfG-lQ-9wD" id="0xQ-PC-Q5H"/>
-                                        </connections>
-                                    </slider>
-                                    <textField horizontalHuggingPriority="50" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dy-9t-dpI">
-                                        <rect key="frame" x="720" y="12" width="86" height="17"/>
-                                        <textFieldCell key="cell" lineBreakMode="charWrapping" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="TotalDuration" usesSingleLineMode="YES" id="Xdu-1y-Twa">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <allowedInputSourceLocales>
-                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                                            </allowedInputSourceLocales>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
+                            <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="41"/>
                                 <edgeInsets key="edgeInsets" left="12" right="12" top="12" bottom="12"/>
+                                <beginningViews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4K-AG-3c7">
+                                        <rect key="frame" x="10" y="12" width="37" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="nKQ-nQ-iq5">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </beginningViews>
+                                <middleViews>
+                                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-hL-2Of">
+                                        <rect key="frame" x="51" y="11" width="698" height="19"/>
+                                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
+                                    </slider>
+                                </middleViews>
+                                <endViews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5l5-Yo-idS">
+                                        <rect key="frame" x="753" y="12" width="37" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="gyj-Ts-oki">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                </endViews>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -249,8 +244,8 @@
                                 </customSpacing>
                             </stackView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FQ-fb-Rv4">
-                                <rect key="frame" x="662" y="407" width="142" height="29"/>
-                                <textFieldCell key="cell" refusesFirstResponder="YES" allowsUndo="NO" title="OpenGLText" drawsBackground="YES" usesSingleLineMode="YES" id="bDg-s9-mbB">
+                                <rect key="frame" x="628" y="431" width="152" height="29"/>
+                                <textFieldCell key="cell" enabled="NO" refusesFirstResponder="YES" allowsUndo="NO" alignment="center" title="InfoTextView" drawsBackground="YES" usesSingleLineMode="YES" id="bDg-s9-mbB">
                                     <font key="font" metaFont="systemBold" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -258,26 +253,27 @@
                             </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="OFH-u5-TLe" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="0sm-X3-VQ9"/>
-                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="ACP-zC-51Y"/>
-                            <constraint firstItem="OFH-u5-TLe" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="Ixd-WY-Yya"/>
-                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="KPQ-F3-7rI"/>
-                            <constraint firstAttribute="trailing" secondItem="4FQ-fb-Rv4" secondAttribute="trailing" constant="12" id="LXd-HC-Xy4"/>
-                            <constraint firstItem="OFH-u5-TLe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Mus-BK-ZZh"/>
-                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="RBg-gR-7Rv"/>
-                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="WsT-t0-vlo"/>
-                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="nfD-Hh-DTZ"/>
-                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="qOb-pt-A4A"/>
+                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="0ZK-0I-nKt"/>
+                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="7Hj-JM-Ncf"/>
+                            <constraint firstItem="bOd-xN-KVB" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Lpp-ZF-Xnr"/>
+                            <constraint firstAttribute="trailing" secondItem="4FQ-fb-Rv4" secondAttribute="trailing" constant="20" symbolic="YES" id="Uod-Hj-s7Z"/>
+                            <constraint firstItem="bOd-xN-KVB" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="V4j-kt-ZX4"/>
+                            <constraint firstItem="bOd-xN-KVB" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="V82-Z6-1M8"/>
+                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="YDx-e4-TCz"/>
+                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="esR-Cs-tzN"/>
+                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="fjJ-4V-dpH"/>
+                            <constraint firstItem="bOd-xN-KVB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="g4w-t4-3dp"/>
+                            <constraint firstItem="QoL-sp-Oe8" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="o4E-aD-PAu"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mBaseView" destination="m2S-Jp-Qdl" id="4JT-dR-4AB"/>
-                        <outlet property="mCurrentPosition" destination="pse-P7-Hqr" id="84Z-Z7-UXu"/>
-                        <outlet property="mOpenGLText" destination="4FQ-fb-Rv4" id="Gkm-rm-wox"/>
+                        <outlet property="mCurrentPosition" destination="D4K-AG-3c7" id="Jis-lD-G04"/>
+                        <outlet property="mInfoText" destination="4FQ-fb-Rv4" id="Rl1-ns-NaM"/>
                         <outlet property="mOpenGLView" destination="QoL-sp-Oe8" id="quB-dc-VrU"/>
-                        <outlet property="mPositionSlider" destination="e8f-zl-git" id="MkD-qd-h1B"/>
-                        <outlet property="mPositionStack" destination="OFH-u5-TLe" id="rtP-Jk-jSF"/>
-                        <outlet property="mTotalDuration" destination="5dy-9t-dpI" id="UAT-Hg-UGu"/>
+                        <outlet property="mPositionSlider" destination="7IJ-hL-2Of" id="tdH-Py-02L"/>
+                        <outlet property="mPositionStack" destination="bOd-xN-KVB" id="ihu-A8-9aI"/>
+                        <outlet property="mTotalDuration" destination="5l5-Yo-idS" id="1rR-jC-K2L"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
