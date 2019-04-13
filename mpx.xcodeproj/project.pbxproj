@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5763346E2260E0110059C5B6 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346C2260E0110059C5B6 /* ABE.framework */; };
-		5763346F2260E0110059C5B6 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346C2260E0110059C5B6 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		576334702260E0110059C5B6 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346D2260E0110059C5B6 /* MediaFramework.framework */; };
-		576334712260E0110059C5B6 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5763346D2260E0110059C5B6 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5763348F2261730C0059C5B6 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5763348D2261730B0059C5B6 /* ABE.framework */; };
+		576334902261730C0059C5B6 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5763348D2261730B0059C5B6 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5763349D22619C700059C5B6 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5763349C22619C700059C5B6 /* MediaFramework.framework */; };
+		5763349E22619C700059C5B6 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5763349C22619C700059C5B6 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57F3157D22608C98000D6B77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157C22608C98000D6B77 /* AppDelegate.swift */; };
 		57F3157F22608C98000D6B77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157E22608C98000D6B77 /* ViewController.swift */; };
 		57F3158122608C98000D6B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F3158022608C98000D6B77 /* Assets.xcassets */; };
@@ -30,8 +30,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				576334712260E0110059C5B6 /* MediaFramework.framework in Embed Frameworks */,
-				5763346F2260E0110059C5B6 /* ABE.framework in Embed Frameworks */,
+				5763349E22619C700059C5B6 /* MediaFramework.framework in Embed Frameworks */,
+				576334902261730C0059C5B6 /* ABE.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,8 +39,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5763346C2260E0110059C5B6 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ABE.framework; sourceTree = "<group>"; };
-		5763346D2260E0110059C5B6 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaFramework.framework; sourceTree = "<group>"; };
+		5763348D2261730B0059C5B6 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ABE.framework; sourceTree = "<group>"; };
+		5763349C22619C700059C5B6 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaFramework.framework; sourceTree = "<group>"; };
 		57F3157922608C98000D6B77 /* mpx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mpx.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F3157C22608C98000D6B77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57F3157E22608C98000D6B77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,8 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				576334702260E0110059C5B6 /* MediaFramework.framework in Frameworks */,
-				5763346E2260E0110059C5B6 /* ABE.framework in Frameworks */,
+				5763349D22619C700059C5B6 /* MediaFramework.framework in Frameworks */,
+				5763348F2261730C0059C5B6 /* ABE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +71,8 @@
 		57F3157022608C98000D6B77 = {
 			isa = PBXGroup;
 			children = (
-				5763346C2260E0110059C5B6 /* ABE.framework */,
-				5763346D2260E0110059C5B6 /* MediaFramework.framework */,
+				5763349C22619C700059C5B6 /* MediaFramework.framework */,
+				5763348D2261730B0059C5B6 /* ABE.framework */,
 				57F3157B22608C98000D6B77 /* mpx */,
 				57F3157A22608C98000D6B77 /* Products */,
 			);

@@ -21,6 +21,19 @@ class ViewController: NSViewController {
     
     var mNativePLayer = NativePlayer()
     var mIsLoaded : Bool = false
+    var mTimer : Timer?
+    
+    func formatCurrentPosition(seconds : Double) -> String {
+        let _seconds = Int64(seconds)
+        let h = _seconds / 3600
+        let m = (_seconds % 3600) / 60
+        let s = _seconds % 60
+        if (h > 0) {
+            return String.init(format: "%02d:%02d:%02d", h, m, s)
+        } else {
+            return String.init(format: "%02d:%02d", m, s)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +45,9 @@ class ViewController: NSViewController {
         
         // not working, but still put this line
         self.view.window?.isMovableByWindowBackground = true
+        
+        mCurrentPosition.stringValue = formatCurrentPosition(seconds: 0)
+        mTotalDuration.stringValue = formatCurrentPosition(seconds: 0)
     }
     
     override func viewWillDisappear() {
@@ -51,8 +67,29 @@ class ViewController: NSViewController {
         }
     }
     
+    dynamic func updateUIOnce(title : String) {
+        self.view.window?.title = title
+    }
+    
+    dynamic func updateUI() {
+        let current = mNativePLayer.progress()
+        let duration = mNativePLayer.duration()
+        
+        mCurrentPosition.stringValue = formatCurrentPosition(seconds: current)
+        mTotalDuration.stringValue = formatCurrentPosition(seconds: duration)
+        mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
+        
+        if (mNativePLayer.isPlaying == false) {
+            // stop timer
+            mTimer?.invalidate()
+            mTimer = nil
+        }
+    }
+    
     func openFile() {
         print("Open File...")
+        
+        mNativePLayer.clear()
         
         let dialog = NSOpenPanel()
         dialog.title                = "Open File..."
@@ -68,15 +105,17 @@ class ViewController: NSViewController {
                 let url = dialog.url!.path
                 print("url = ", url)
                 
-                mNativePLayer.clear()
                 mNativePLayer.setup(url: url)
                 mNativePLayer.prepare(seconds: 0)
                 
                 mIsLoaded = true
+                updateUIOnce(title: url)
             }
         } else {
             print("Cancel Open File...")
         }
+        
+        updateUI()
     }
     
     func closeFile() {
@@ -95,6 +134,11 @@ class ViewController: NSViewController {
                 openFile()
             }
             if (mNativePLayer.startOrPause() == true) {
+                
+                mTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
+                    self.updateUI()
+                })
+                
             }
         } else if (c == "q") {
             closeFile()

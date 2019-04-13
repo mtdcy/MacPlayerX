@@ -9,6 +9,10 @@
 import Foundation
 import Cocoa
 
+protocol PlayerProtocol {
+    func currentPosition(_ player : NativePlayer)
+}
+
 // https://stackoverflow.com/questions/40014717/swift-3-cannot-recognize-the-macro-function
 // complex macros are not available in swift
 
@@ -17,8 +21,11 @@ typealias CFrameCallback = @convention(c)(MediaFrameRef?, UnsafeMutableRawPointe
 typealias CPositionCallback = @convention(c)(Int64, UnsafeMutableRawPointer?) -> Void
 
 class NativePlayer : NSObject {
+    //var mDelegate : PlayerProtocol?
+    
     var mHandle : MediaPlayerRef?
     var mClock : MediaClockRef?
+    var mInfo : MessageRef?
     
     class MediaOutContext {
         var mMediaOut : MediaOutRef?
@@ -35,6 +42,29 @@ class NativePlayer : NSObject {
             NSLog(String.init(cString: line!))
         }
         LogSetCallback(callback)
+    }
+    
+    var isPlaying : Bool {
+        if (mHandle == nil) {
+            return false
+        } else {
+            return MediaPlayerGetState(mHandle) == kStatePlaying
+        }
+    }
+    
+    public func progress() -> Double {
+        if (mClock == nil) {
+            return 0
+        }
+        return Double(MediaClockGetTime(mClock)) / 1E6
+    }
+    
+    public func duration() -> Double {
+        if (mInfo == nil) {
+            return 0
+        }
+        let _duration = SharedMessageGetInt64(mInfo, kKeyDuration, 0)
+        return Double(_duration) / 1E6;
     }
     
     public func setup(url : String) {
@@ -113,25 +143,18 @@ class NativePlayer : NSObject {
         
         print("MediaPlayerCreate");
         mHandle = MediaPlayerCreate(media, options)
-        mClock = MediaClockGet(mHandle)
+        mClock = MediaPlayerGetClock(mHandle)
+        mInfo = MediaPlayerGetInfo(mHandle)
         
         // release refs
         SharedObjectRelease(options)
         SharedObjectRelease(media)
     }
     
-    public func progress() -> Double {
-        if (mClock == nil) {
-            return 0;
-        }
-        return Double(MediaClockGetTime(mClock)) / 1E6
-    }
-    
     public func prepare(seconds : Double) {
         if (mHandle != nil) {
             print("MediaPlayerPrepare");
-            var options : MessageRef = SharedMessageCreate()
-            MediaPlayerPrepare(mHandle, seconds)
+            MediaPlayerPrepare(mHandle, Int64(seconds * 1E6))
         }
     }
     
@@ -174,6 +197,12 @@ class NativePlayer : NSObject {
             } else if (state == kStateIdle) {
                 MediaPlayerFlush(mHandle)
             }
+            
+            SharedObjectRelease(mClock)
+            mClock = nil
+            SharedObjectRelease(mInfo)
+            mInfo = nil
+            
             // FIXME: may block
             MediaPlayerRelease(mHandle)
             mHandle = nil
