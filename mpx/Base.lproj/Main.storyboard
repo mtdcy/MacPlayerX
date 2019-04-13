@@ -248,13 +248,24 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FQ-fb-Rv4">
+                                <rect key="frame" x="662" y="407" width="142" height="29"/>
+                                <textFieldCell key="cell" refusesFirstResponder="YES" allowsUndo="NO" title="OpenGLText" drawsBackground="YES" usesSingleLineMode="YES" id="bDg-s9-mbB">
+                                    <font key="font" metaFont="systemBold" size="24"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="OFH-u5-TLe" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="0sm-X3-VQ9"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="ACP-zC-51Y"/>
                             <constraint firstItem="OFH-u5-TLe" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="Ixd-WY-Yya"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="KPQ-F3-7rI"/>
+                            <constraint firstAttribute="trailing" secondItem="4FQ-fb-Rv4" secondAttribute="trailing" constant="12" id="LXd-HC-Xy4"/>
                             <constraint firstItem="OFH-u5-TLe" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Mus-BK-ZZh"/>
+                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="12" id="RBg-gR-7Rv"/>
+                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="WsT-t0-vlo"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="nfD-Hh-DTZ"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="qOb-pt-A4A"/>
                         </constraints>
@@ -262,6 +273,7 @@
                     <connections>
                         <outlet property="mBaseView" destination="m2S-Jp-Qdl" id="4JT-dR-4AB"/>
                         <outlet property="mCurrentPosition" destination="pse-P7-Hqr" id="84Z-Z7-UXu"/>
+                        <outlet property="mOpenGLText" destination="4FQ-fb-Rv4" id="Gkm-rm-wox"/>
                         <outlet property="mOpenGLView" destination="QoL-sp-Oe8" id="quB-dc-VrU"/>
                         <outlet property="mPositionSlider" destination="e8f-zl-git" id="MkD-qd-h1B"/>
                         <outlet property="mPositionStack" destination="OFH-u5-TLe" id="rtP-Jk-jSF"/>

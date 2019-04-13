@@ -26,12 +26,28 @@ class NativePlayer : NSObject {
     // FIXME: switch to queue
     var mMediaFrame : MediaFrameRef?
     
+    var mIsOpenGLEnabled : Bool = false         // kInfoOpenGLEnabled
+    var mIsVideoToolboxEnabled : Bool = false   // kInfoVideoToolboxEnabled
+    var mIsPlaying : Bool = false
+    
+    var isOpenGL : Bool {
+        return mIsOpenGLEnabled == true && mIsVideoToolboxEnabled == true
+    }
+    
+    var isPlaying : Bool {
+        return mIsPlaying
+    }
+    
     func onPlayerInfo(info : eInfoType) {
         switch (info) {
-        case kInfoEndOfStream:
-            NSLog("EOS")
-            //case kInfoPlayerReady..kInfoPlayerReleased:
-            
+        case kInfoPlayerPlaying:
+            mIsPlaying = true
+        case kInfoPlayerPaused, kInfoEndOfStream, kInfoPlayerFlushed, kInfoPlayerReleased:
+            mIsPlaying = false
+        case kInfoOpenGLEnabled:
+            mIsOpenGLEnabled = true
+        case kInfoVideoToolboxEnabled:
+            mIsVideoToolboxEnabled = true
         default:
             NSLog("Player Info -> %d", info.rawValue)
         }
@@ -87,14 +103,6 @@ class NativePlayer : NSObject {
         // https://originware.com/blog/?p=265
         LogSetCallback { (line : UnsafePointer<Int8>?) in
             print(String.init(cString: line!))
-        }
-    }
-    
-    var isPlaying : Bool {
-        if (mHandle == nil) {
-            return false
-        } else {
-            return MediaPlayerGetState(mHandle) == kStatePlaying
         }
     }
     
@@ -196,14 +204,23 @@ class NativePlayer : NSObject {
                 MediaPlayerFlush(mHandle)
             }
             
-            SharedObjectRelease(mClock)
-            mClock = nil
-            SharedObjectRelease(mInfo)
-            mInfo = nil
-            
-            // FIXME: may block
             MediaPlayerRelease(mHandle)
             mHandle = nil
+        }
+        
+        if (mClock != nil) {
+            SharedObjectRelease(mClock)
+            mClock = nil
+        }
+        
+        if (mInfo != nil) {
+            SharedObjectRelease(mInfo)
+            mInfo = nil
+        }
+        
+        if (mMediaOut != nil) {
+            SharedObjectRelease(mMediaOut)
+            mMediaOut = nil
         }
     }
 }
