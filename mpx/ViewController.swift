@@ -12,16 +12,16 @@ class ViewController: NSViewController {
 
     @IBOutlet var mBaseView: BaseView!
     @IBOutlet weak var mOpenGLView: OpenGLView!
-    
     @IBOutlet weak var mPositionStack: NSStackView!
     @IBOutlet weak var mCurrentPosition: NSTextField!
     @IBOutlet weak var mTotalDuration: NSTextField!
     @IBOutlet weak var mPositionSlider: NSSlider!
     
-    
+    var mIsVisible : Bool?              // true, false, nil
+    var mUpdater : Timer?
+    let mUpdateInterval : Double = 0.2
+
     var mNativePLayer = NativePlayer()
-    var mIsLoaded : Bool = false
-    var mTimer : Timer?
     
     func formatTime(seconds : Double) -> String {
         let _seconds = Int64(seconds)
@@ -46,12 +46,12 @@ class ViewController: NSViewController {
         // not working, but still put this line
         self.view.window?.isMovableByWindowBackground = true
         
-        mCurrentPosition.stringValue = formatTime(seconds: 0)
-        mTotalDuration.stringValue = formatTime(seconds: 0)
+        // hide UI at beginning
+        showUI(visible: false)
     }
     
     override func viewWillDisappear() {
-        closeFile()
+        mNativePLayer.clear()
         
         NSLog("View Will Disappear")
         super.viewWillDisappear()
@@ -67,11 +67,13 @@ class ViewController: NSViewController {
         }
     }
     
-    dynamic func updateUIOnce(title : String) {
+    // update elements once, like title
+    func updateUIOnce(title : String) {
         self.view.window?.title = title
+        updateUI()
     }
     
-    dynamic func updateUI() {
+    func updateUI() {
         let current = mNativePLayer.progress()
         let duration = mNativePLayer.duration()
         
@@ -80,9 +82,40 @@ class ViewController: NSViewController {
         mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
         
         if (mNativePLayer.isPlaying == false) {
-            // stop timer
-            mTimer?.invalidate()
-            mTimer = nil
+            NSLog("updateUI: player has stopped")
+            mUpdater?.invalidate()
+            mUpdater = nil
+        }
+    }
+    
+    func showUI(visible : Bool) {
+        if (visible) {
+            if (mIsVisible == true) {
+                NSLog("showUI: UI is already visible");
+            } else {
+                self.view.window?.titleVisibility = NSWindow.TitleVisibility.visible
+                mPositionStack.isHidden = false
+            }
+            
+            if (mUpdater != nil) {
+                return;
+            }
+            
+            // start a timer to update ui
+            mUpdater = Timer.scheduledTimer(withTimeInterval: mUpdateInterval, repeats: true, block: { (Timer) in
+                self.updateUI()
+            })
+            updateUI()
+            
+            mIsVisible = true
+        } else {
+            self.view.window?.titleVisibility = NSWindow.TitleVisibility.hidden
+            mPositionStack.isHidden = true
+            
+            mUpdater?.invalidate()
+            mUpdater = nil
+            
+            mIsVisible = false
         }
     }
     
@@ -92,11 +125,11 @@ class ViewController: NSViewController {
         mNativePLayer.clear()
         
         let dialog = NSOpenPanel()
-        dialog.title                = "Open File..."
-        dialog.showsResizeIndicator = true
-        dialog.showsHiddenFiles     = false
-        dialog.canChooseFiles       = true
-        dialog.canChooseDirectories = false
+        dialog.title                    = "Open File..."
+        dialog.showsResizeIndicator     = true
+        dialog.showsHiddenFiles         = false
+        dialog.canChooseFiles           = true
+        dialog.canChooseDirectories     = false
         dialog.allowsMultipleSelection  = false
         dialog.allowedFileTypes         = ["mp4","mkv","mp3"]
         
@@ -108,19 +141,13 @@ class ViewController: NSViewController {
                 mNativePLayer.setup(url: url)
                 mNativePLayer.prepare(seconds: 0)
                 
-                mIsLoaded = true
+                // show ui
+                showUI(visible: true)
                 updateUIOnce(title: url)
             }
         } else {
             NSLog("Cancel Open File...")
         }
-        
-        updateUI()
-    }
-    
-    func closeFile() {
-        mNativePLayer.clear()
-        mIsLoaded = false
     }
     
     override func keyDown(with event: NSEvent) {
@@ -130,18 +157,17 @@ class ViewController: NSViewController {
         if (c == "o") {
             openFile()
         } else if (c == " ") {
-            if (mIsLoaded == false) {
-                openFile()
-            }
             if (mNativePLayer.startOrPause() == true) {
-                
-                mTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (Timer) in
-                    self.updateUI()
-                })
-                
+                showUI(visible: true)
             }
         } else if (c == "q") {
-            closeFile()
+            mNativePLayer.clear()
+        } else if (c == "z") {
+            if (mIsVisible == true) {
+                showUI(visible: false)
+            } else {
+                showUI(visible: true)
+            }
         }
         
     }
