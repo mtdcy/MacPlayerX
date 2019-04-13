@@ -174,18 +174,35 @@ class ViewController: NSViewController {
     override func keyDown(with event: NSEvent) {
         NSLog("keyDown: %@", event)
         
-        let c = event.charactersIgnoringModifiers
-        switch (c) {
-        case "o":
-            openFile()
-        case " ":
-            mNativePLayer.startOrPause()
-        case "q":
-            mNativePLayer.clear()
-        default:
-            break
+        let special = event.specialKey;
+        if (special != nil) {
+            switch (special) {
+            case NSEvent.SpecialKey.rightArrow:
+                mNativePLayer.prepare(seconds: mNativePLayer.progress() + 5)
+            case NSEvent.SpecialKey.leftArrow:
+                mNativePLayer.prepare(seconds: mNativePLayer.progress() - 5)
+            default:
+                break;
+            }
+        } else {
+            let c = event.charactersIgnoringModifiers
+            switch (c) {
+            case "o":
+                openFile()
+            case " ":
+                mNativePLayer.startOrPause()
+            case "q":
+                mNativePLayer.clear()
+            default:
+                break
+            }
+            
         }
         
+        showUI(visible: true)
+    }
+    
+    override func mouseDown(with event: NSEvent) {
         showUI(visible: true)
     }
     
@@ -206,6 +223,7 @@ class ViewController: NSViewController {
         let sec = mNativePLayer.duration() * mPositionSlider.doubleValue / mPositionSlider.maxValue;
         NSLog("seek to %@", sec)
         mNativePLayer.prepare(seconds: sec)
+        showUI(visible: true)
     }
 }
 

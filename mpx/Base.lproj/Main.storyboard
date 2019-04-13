@@ -220,6 +220,9 @@
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-hL-2Of">
                                         <rect key="frame" x="51" y="11" width="698" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
+                                        <connections>
+                                            <action selector="seekWithSender:" target="XfG-lQ-9wD" id="VEz-QQ-bYk"/>
+                                        </connections>
                                     </slider>
                                 </middleViews>
                                 <endViews>
