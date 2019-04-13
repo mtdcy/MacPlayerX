@@ -21,6 +21,8 @@ class ViewController: NSViewController {
     var mIsVisible : Bool?              // true, false, nil
     var mUpdater : Timer?
     let mUpdateInterval : Double = 0.2
+    var mShowTime : Date?
+    let mShowInterval : Double = 5
 
     var mNativePLayer = NativePlayer()
     
@@ -50,8 +52,8 @@ class ViewController: NSViewController {
         // init values
         mOpenGLText.stringValue = "OpenGL"
         
-        // hide UI at beginning
-        showUI(visible: false)
+        // show UI at beginning
+        showUI(visible: true)
     }
     
     override func viewWillDisappear() {
@@ -72,8 +74,12 @@ class ViewController: NSViewController {
     }
     
     // update elements once, like title
-    func updateUIOnce(title : String) {
-        self.view.window?.title = title
+    func updateUIOnce(title : String?) {
+        if (title != nil) {
+            self.view.window?.title = title!
+        }
+        let duration = mNativePLayer.duration()
+        mTotalDuration.stringValue = formatTime(seconds: duration)
         updateUI()
     }
     
@@ -82,18 +88,12 @@ class ViewController: NSViewController {
         let duration = mNativePLayer.duration()
         
         mCurrentPosition.stringValue = formatTime(seconds: current)
-        mTotalDuration.stringValue = formatTime(seconds: duration)
         mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
-        
-        if (mNativePLayer.isPlaying == false) {
-            NSLog("updateUI: player has stopped")
-            mUpdater?.invalidate()
-            mUpdater = nil
-        }
     }
     
     func showUI(visible : Bool) {
         if (visible) {
+            NSLog("showUI...");
             if (mIsVisible == true) {
                 NSLog("showUI: UI is already visible");
             } else {
@@ -109,18 +109,27 @@ class ViewController: NSViewController {
                 }
             }
             
-            if (mUpdater != nil) {
-                return;
-            }
-            
+            updateUIOnce(title: nil)
+            mShowTime = Date()
             // start a timer to update ui
-            mUpdater = Timer.scheduledTimer(withTimeInterval: mUpdateInterval, repeats: true, block: { (Timer) in
-                self.updateUI()
-            })
-            updateUI()
+            if (mUpdater == nil) {
+                mUpdater = Timer.scheduledTimer(withTimeInterval: mUpdateInterval, repeats: true, block: { (timer : Timer) in
+                    self.updateUI()
+                    
+                    // hide ui after a while
+                    guard let showTime = self.mShowTime else {
+                        return
+                    }
+                    let now = Date()
+                    if (showTime + self.mShowInterval < now) {
+                        self.showUI(visible: false)
+                    }
+                })
+            }
             
             mIsVisible = true
         } else {
+            NSLog("hideUI...")
             self.view.window?.titleVisibility = NSWindow.TitleVisibility.hidden
             mPositionStack.isHidden = true
             mOpenGLText.isHidden = true
@@ -155,7 +164,6 @@ class ViewController: NSViewController {
                 mNativePLayer.prepare(seconds: 0)
                 
                 // show ui
-                showUI(visible: true)
                 updateUIOnce(title: url)
             }
         } else {
@@ -167,22 +175,18 @@ class ViewController: NSViewController {
         NSLog("keyDown: %@", event)
         
         let c = event.charactersIgnoringModifiers
-        if (c == "o") {
+        switch (c) {
+        case "o":
             openFile()
-        } else if (c == " ") {
-            if (mNativePLayer.startOrPause() == true) {
-                showUI(visible: true)
-            }
-        } else if (c == "q") {
+        case " ":
+            mNativePLayer.startOrPause()
+        case "q":
             mNativePLayer.clear()
-        } else if (c == "z") {
-            if (mIsVisible == true) {
-                showUI(visible: false)
-            } else {
-                showUI(visible: true)
-            }
+        default:
+            break
         }
         
+        showUI(visible: true)
     }
     
     // move window by background
