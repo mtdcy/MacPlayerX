@@ -23,7 +23,8 @@ class NativePlayer : NSObject {
     var mClock : MediaClockRef?
     var mInfo : MessageRef?
     var mMediaOut : MediaOutRef?
-    // FIXME: switch to queue
+    
+    var mLock : NSLock = NSLock()
     var mMediaFrame : MediaFrameRef?
     
     var mIsOpenGLEnabled : Bool = false         // kInfoOpenGLEnabled
@@ -53,47 +54,54 @@ class NativePlayer : NSObject {
         }
     }
     
+    func draw() {
+        mLock.lock()
+        guard mMediaFrame != nil else {
+            NSLog("nil MediaFrame")
+            if (mMediaOut != nil) {
+                MediaOutFlush(mMediaOut)
+            }
+            return
+        }
+        
+        if (mMediaOut == nil) {
+            self.mMediaOut = MediaOutCreate(kCodecTypeVideo)
+            
+            let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(self.mMediaFrame)
+            
+            let format = SharedMessageCreate();
+            SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
+            SharedMessagePutInt32(format, kKeyWidth, imageFormat.pointee.width)
+            SharedMessagePutInt32(format, kKeyHeight, imageFormat.pointee.height)
+            
+            let options = SharedMessageCreate();
+            if (MediaFrameGetOpaque(mMediaFrame) != nil) {
+                SharedMessagePutInt32(options, kKeyOpenGLCompatible, 1)
+            }
+            MediaOutPrepare(self.mMediaOut, format, options)
+            
+            SharedObjectRelease(format)
+            SharedObjectRelease(options)
+        }
+        
+        MediaOutWrite(self.mMediaOut, mMediaFrame)
+        mLock.unlock()
+    }
+    
     func updateMediaFrame(current : MediaFrameRef?) {
         //NSLog("FrameCallback");
         if (current != nil) {
+            mLock.lock()
+            if (mMediaFrame != nil) {
+                SharedObjectRelease(mMediaFrame)
+                mMediaFrame = nil
+            }
             mMediaFrame = SharedObjectRetain(current)
+            mLock.unlock()
         }
         
         DispatchQueue.main.async {
-            //NSLog("drawMediaFrame in main")
-            
-            if (self.mMediaFrame == nil) {
-                NSLog("nil MediaFrame")
-                if (self.mMediaOut != nil) {
-                    MediaOutFlush(self.mMediaOut)
-                }
-                return
-            }
-            
-            if (self.mMediaOut == nil) {
-                self.mMediaOut = MediaOutCreate(kCodecTypeVideo)
-                
-                let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(self.mMediaFrame)
-                
-                let format = SharedMessageCreate();
-                SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
-                SharedMessagePutInt32(format, kKeyWidth, imageFormat.pointee.width)
-                SharedMessagePutInt32(format, kKeyHeight, imageFormat.pointee.height)
-                
-                let options = SharedMessageCreate();
-                if (MediaFrameGetOpaque(current) != nil) {
-                    SharedMessagePutInt32(options, kKeyOpenGLCompatible, 1)
-                }
-                MediaOutPrepare(self.mMediaOut, format, options)
-                
-                SharedObjectRelease(format)
-                SharedObjectRelease(options)
-            }
-            
-            MediaOutWrite(self.mMediaOut, current)
-            
-            SharedObjectRelease(self.mMediaFrame)
-            self.mMediaFrame = nil
+            self.draw()
         }
     }
     
@@ -221,6 +229,11 @@ class NativePlayer : NSObject {
         if (mMediaOut != nil) {
             SharedObjectRelease(mMediaOut)
             mMediaOut = nil
+        }
+        
+        if (mMediaFrame != nil) {
+            SharedObjectRelease(mMediaFrame)
+            mMediaFrame = nil
         }
     }
 }
