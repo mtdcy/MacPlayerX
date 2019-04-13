@@ -16,32 +16,78 @@ protocol PlayerProtocol {
 // https://stackoverflow.com/questions/40014717/swift-3-cannot-recognize-the-macro-function
 // complex macros are not available in swift
 
-typealias CLogCallback = @convention(c)(UnsafePointer<Int8>?) -> Void
-typealias CFrameCallback = @convention(c)(MediaFrameRef?, UnsafeMutableRawPointer?) -> Void
-typealias CPositionCallback = @convention(c)(Int64, UnsafeMutableRawPointer?) -> Void
-
 class NativePlayer : NSObject {
     //var mDelegate : PlayerProtocol?
     
     var mHandle : MediaPlayerRef?
     var mClock : MediaClockRef?
     var mInfo : MessageRef?
+    var mMediaOut : MediaOutRef?
+    // FIXME: switch to queue
+    var mMediaFrame : MediaFrameRef?
     
-    class MediaOutContext {
-        var mMediaOut : MediaOutRef?
-        // FIXME: switch to queue
-        var mMediaFrame : MediaFrameRef?
+    func onPlayerInfo(info : eInfoType) {
+        switch (info) {
+        case kInfoEndOfStream:
+            NSLog("EOS")
+            //case kInfoPlayerReady..kInfoPlayerReleased:
+            
+        default:
+            NSLog("Player Info -> %d", info.rawValue)
+        }
     }
-    var mMediaOutContext : MediaOutContext!
+    
+    func updateMediaFrame(current : MediaFrameRef?) {
+        //NSLog("FrameCallback");
+        if (current != nil) {
+            mMediaFrame = SharedObjectRetain(current)
+        }
+        
+        DispatchQueue.main.async {
+            //NSLog("drawMediaFrame in main")
+            
+            if (self.mMediaFrame == nil) {
+                NSLog("nil MediaFrame")
+                if (self.mMediaOut != nil) {
+                    MediaOutFlush(self.mMediaOut)
+                }
+                return
+            }
+            
+            if (self.mMediaOut == nil) {
+                self.mMediaOut = MediaOutCreate(kCodecTypeVideo)
+                
+                let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(self.mMediaFrame)
+                
+                let format = SharedMessageCreate();
+                SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
+                SharedMessagePutInt32(format, kKeyWidth, imageFormat.pointee.width)
+                SharedMessagePutInt32(format, kKeyHeight, imageFormat.pointee.height)
+                
+                let options = SharedMessageCreate();
+                if (MediaFrameGetOpaque(current) != nil) {
+                    SharedMessagePutInt32(options, kKeyOpenGLCompatible, 1)
+                }
+                MediaOutPrepare(self.mMediaOut, format, options)
+                
+                SharedObjectRelease(format)
+                SharedObjectRelease(options)
+            }
+            
+            MediaOutWrite(self.mMediaOut, current)
+            
+            SharedObjectRelease(self.mMediaFrame)
+            self.mMediaFrame = nil
+        }
+    }
     
     override init() {
-        print("NativePlayer init")
+        NSLog("NativePlayer init")
         // setup log callback
         // https://originware.com/blog/?p=265
-        let callback : CLogCallback = { (line : UnsafePointer<Int8>?) -> Void in
-            NSLog(String.init(cString: line!))
+        LogSetCallback { (line : UnsafePointer<Int8>?) in
+            print(String.init(cString: line!))
         }
-        LogSetCallback(callback)
     }
     
     var isPlaying : Bool {
@@ -68,80 +114,32 @@ class NativePlayer : NSObject {
     }
     
     public func setup(url : String) {
-        print("setup")
+        NSLog("setup")
 
         clear()
         
         // setup options
-        var options : MessageRef = SharedMessageCreate()
-        let FrameCallback : CFrameCallback = { (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) -> Void in
-            if (current == nil) {
-                print("FrameCallback: nil MediaFrameRef")
-            } else {
-                //NSLog("FrameCallback");
-                let context : MediaOutContext = Unmanaged.fromOpaque(user!).takeUnretainedValue()
-                if (current != nil) {
-                    context.mMediaFrame = SharedObjectRetain(current)
-                }
-                
-                DispatchQueue.main.async {
-                    //NSLog("drawMediaFrame in main")
-                    
-                    if (context.mMediaFrame == nil) {
-                        print("nil MediaFrame")
-                        if (context.mMediaOut != nil) {
-                            MediaOutFlush(context.mMediaOut)
-                        }
-                        return
-                    }
-                    
-                    if (context.mMediaOut == nil) {
-                        context.mMediaOut = MediaOutCreate(kCodecTypeVideo)
-                        
-                        let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(context.mMediaFrame)
-                        
-                        var format = SharedMessageCreate();
-                        SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
-                        SharedMessagePutInt32(format, kKeyWidth, imageFormat.pointee.width)
-                        SharedMessagePutInt32(format, kKeyHeight, imageFormat.pointee.height)
-                        
-                        var options = SharedMessageCreate();
-                        if (MediaFrameGetOpaque(current) != nil) {
-                            SharedMessagePutInt32(options, kKeyOpenGLCompatible, 1)
-                        }
-                        MediaOutPrepare(context.mMediaOut, format, options)
-                        
-                        SharedObjectRelease(format)
-                        SharedObjectRelease(options)
-                    }
-                    
-                    MediaOutWrite(context.mMediaOut, current)
-                    
-                    SharedObjectRelease(context.mMediaFrame)
-                    context.mMediaFrame = nil
-                }
-            }
-        }
+        let options : MessageRef = SharedMessageCreate()
         
         // MediaFrame Callback
-        mMediaOutContext = MediaOutContext()
-        let user = Unmanaged.passUnretained(mMediaOutContext!).toOpaque()
-        let OnFrameUpdate : FrameEventRef = FrameEventCreate(FrameCallback, user)
+        let OnFrameUpdate : FrameEventRef = FrameEventCreate({ (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
+            let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
+            context.updateMediaFrame(current: current)
+        }, Unmanaged.passUnretained(self).toOpaque())
         SharedMessagePutObject(options, "MediaFrameEvent", OnFrameUpdate)
         SharedObjectRelease(OnFrameUpdate)
+        
+        let OnInfoUpdate : InfoEventRef = InfoEventCreate({ (info : eInfoType, user : UnsafeMutableRawPointer?) in
+            let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
+            context.onPlayerInfo(info: info)
+        }, Unmanaged.passUnretained(self).toOpaque())
+        SharedMessagePutObject(options, "InfomationEvent", OnInfoUpdate)
+        SharedObjectRelease(OnInfoUpdate)
 
-/*
-        let PositionCallback : CPositionCallback = { (pos : Int64, user : UnsafeMutableRawPointer?) -> Void in
-            NSLog("PositionCallback")
-        }
-        let OnPositionUpdate : PositionEventRef = PositionEventCreate(PositionCallback, nil)
-        SharedMessagePutObject(options, "RenderPositionEvent", OnPositionUpdate)
-        SharedObjectRelease(OnPositionUpdate)
-*/
-        var media : MessageRef = SharedMessageCreate()
+        let media : MessageRef = SharedMessageCreate()
         SharedMessagePutString(media, "url", url)
         
-        print("MediaPlayerCreate");
+        NSLog("MediaPlayerCreate");
         mHandle = MediaPlayerCreate(media, options)
         mClock = MediaPlayerGetClock(mHandle)
         mInfo = MediaPlayerGetInfo(mHandle)
@@ -153,7 +151,7 @@ class NativePlayer : NSObject {
     
     public func prepare(seconds : Double) {
         if (mHandle != nil) {
-            print("MediaPlayerPrepare");
+            NSLog("MediaPlayerPrepare");
             MediaPlayerPrepare(mHandle, Int64(seconds * 1E6))
         }
     }
@@ -162,15 +160,15 @@ class NativePlayer : NSObject {
         if (mHandle != nil) {
             let state = MediaPlayerGetState(mHandle)
             if (state == kStatePlaying) {
-                print("MediaPlayerPause");
+                NSLog("MediaPlayerPause");
                 MediaPlayerPause(mHandle)
                 return false
             } else if (state == kStateReady || state == kStateIdle) {
-                print("MediaPlayerStart");
+                NSLog("MediaPlayerStart");
                 MediaPlayerStart(mHandle)
                 return true
             } else {
-                print("MediaPlayer bad state")
+                NSLog("MediaPlayer bad state")
             }
         }
         return false
@@ -178,7 +176,7 @@ class NativePlayer : NSObject {
     
     public func flush() {
         if (mHandle != nil) {
-            print("MediaPlayerFlush");
+            NSLog("MediaPlayerFlush");
             let state = MediaPlayerGetState(mHandle)
             if (state == kStatePlaying) {
                 MediaPlayerPause(mHandle)
@@ -189,7 +187,7 @@ class NativePlayer : NSObject {
     
     public func clear() {
         if (mHandle != nil) {
-            print("MediaPlayerRelease");
+            NSLog("MediaPlayerRelease");
             let state = MediaPlayerGetState(mHandle)
             if (state == kStatePlaying) {
                 MediaPlayerPause(mHandle)

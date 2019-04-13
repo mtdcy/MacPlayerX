@@ -197,17 +197,17 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="mpx" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl" customClass="BaseView" customModule="mpx" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="448"/>
+                        <rect key="frame" x="0.0" y="0.0" width="816" height="448"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <openGLView wantsLayer="YES" useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="mpx" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="448"/>
+                                <rect key="frame" x="0.0" y="0.0" width="816" height="448"/>
                             </openGLView>
                             <stackView distribution="fillProportionally" orientation="horizontal" alignment="centerY" spacing="2" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OFH-u5-TLe">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="41"/>
+                                <rect key="frame" x="0.0" y="0.0" width="816" height="41"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="50" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pse-P7-Hqr">
-                                        <rect key="frame" x="2" y="12" width="99" height="17"/>
+                                        <rect key="frame" x="10" y="12" width="99" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="charWrapping" refusesFirstResponder="YES" allowsUndo="NO" alignment="left" title="CurrentPosition" id="a53-N8-osU">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -218,11 +218,14 @@
                                         </textFieldCell>
                                     </textField>
                                     <slider verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="e8f-zl-git">
-                                        <rect key="frame" x="99" y="11" width="615" height="19"/>
+                                        <rect key="frame" x="107" y="11" width="615" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="rX5-hh-waB"/>
+                                        <connections>
+                                            <action selector="seekWithSender:" target="XfG-lQ-9wD" id="0xQ-PC-Q5H"/>
+                                        </connections>
                                     </slider>
                                     <textField horizontalHuggingPriority="50" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dy-9t-dpI">
-                                        <rect key="frame" x="712" y="12" width="86" height="17"/>
+                                        <rect key="frame" x="720" y="12" width="86" height="17"/>
                                         <textFieldCell key="cell" lineBreakMode="charWrapping" refusesFirstResponder="YES" allowsUndo="NO" alignment="right" title="TotalDuration" usesSingleLineMode="YES" id="Xdu-1y-Twa">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -233,7 +236,7 @@
                                         </textFieldCell>
                                     </textField>
                                 </subviews>
-                                <edgeInsets key="edgeInsets" left="4" right="4" top="12" bottom="12"/>
+                                <edgeInsets key="edgeInsets" left="12" right="12" top="12" bottom="12"/>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>

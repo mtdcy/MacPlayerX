@@ -23,7 +23,7 @@ class ViewController: NSViewController {
     var mIsLoaded : Bool = false
     var mTimer : Timer?
     
-    func formatCurrentPosition(seconds : Double) -> String {
+    func formatTime(seconds : Double) -> String {
         let _seconds = Int64(seconds)
         let h = _seconds / 3600
         let m = (_seconds % 3600) / 60
@@ -37,23 +37,23 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("View Did Load")
+        NSLog("View Did Load")
         
         // setup OpenGL Context
-        print("OpenGLContext: ", mOpenGLView.openGLContext!)
+        NSLog("OpenGLContext: %@", mOpenGLView.openGLContext!)
         mOpenGLView.prepareOpenGL()
         
         // not working, but still put this line
         self.view.window?.isMovableByWindowBackground = true
         
-        mCurrentPosition.stringValue = formatCurrentPosition(seconds: 0)
-        mTotalDuration.stringValue = formatCurrentPosition(seconds: 0)
+        mCurrentPosition.stringValue = formatTime(seconds: 0)
+        mTotalDuration.stringValue = formatTime(seconds: 0)
     }
     
     override func viewWillDisappear() {
         closeFile()
         
-        print("View Will Disappear")
+        NSLog("View Will Disappear")
         super.viewWillDisappear()
         
         // close application on player gone
@@ -75,8 +75,8 @@ class ViewController: NSViewController {
         let current = mNativePLayer.progress()
         let duration = mNativePLayer.duration()
         
-        mCurrentPosition.stringValue = formatCurrentPosition(seconds: current)
-        mTotalDuration.stringValue = formatCurrentPosition(seconds: duration)
+        mCurrentPosition.stringValue = formatTime(seconds: current)
+        mTotalDuration.stringValue = formatTime(seconds: duration)
         mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
         
         if (mNativePLayer.isPlaying == false) {
@@ -87,7 +87,7 @@ class ViewController: NSViewController {
     }
     
     func openFile() {
-        print("Open File...")
+        NSLog("Open File...")
         
         mNativePLayer.clear()
         
@@ -103,7 +103,7 @@ class ViewController: NSViewController {
         if (dialog.runModal() == NSApplication.ModalResponse.OK) {
             if (dialog.url != nil) {
                 let url = dialog.url!.path
-                print("url = ", url)
+                NSLog("url = %@", url)
                 
                 mNativePLayer.setup(url: url)
                 mNativePLayer.prepare(seconds: 0)
@@ -112,7 +112,7 @@ class ViewController: NSViewController {
                 updateUIOnce(title: url)
             }
         } else {
-            print("Cancel Open File...")
+            NSLog("Cancel Open File...")
         }
         
         updateUI()
@@ -124,7 +124,7 @@ class ViewController: NSViewController {
     }
     
     override func keyDown(with event: NSEvent) {
-        print("keyDown: ", event)
+        NSLog("keyDown: %@", event)
         
         let c = event.charactersIgnoringModifiers
         if (c == "o") {
@@ -157,6 +157,12 @@ class ViewController: NSViewController {
 
     @IBAction func close(sender : Any) {
         self.view.window?.performClose(nil)
+    }
+    
+    @IBAction func seek(sender : Any) {
+        let sec = mNativePLayer.duration() * mPositionSlider.doubleValue / mPositionSlider.maxValue;
+        NSLog("seek to %@", sec)
+        mNativePLayer.prepare(seconds: sec)
     }
 }
 
