@@ -38,6 +38,20 @@ class NativePlayer : NSObject {
         return mIsPlaying
     }
     
+    var currentPosition : Double {
+        if (mClock == nil) {
+            return 0
+        }
+        return Double(MediaClockGetTime(mClock)) / 1E6
+    }
+    
+    var duration : Double {
+        if (mInfo == nil) {
+            return 0
+        }
+        return Double(SharedMessageGetInt64(mInfo, kKeyDuration, 0)) / 1E6
+    }
+    
     func onPlayerInfo(info : eInfoType) {
         NSLog("Player Info -> %d", info.rawValue)
         switch (info) {
@@ -119,21 +133,6 @@ class NativePlayer : NSObject {
         LogSetCallback { (line : UnsafePointer<Int8>?) in
             print(String.init(cString: line!))
         }
-    }
-    
-    public func progress() -> Double {
-        if (mClock == nil) {
-            return 0
-        }
-        return Double(MediaClockGetTime(mClock)) / 1E6
-    }
-    
-    public func duration() -> Double {
-        if (mInfo == nil) {
-            return 0
-        }
-        let _duration = SharedMessageGetInt64(mInfo, kKeyDuration, 0)
-        return Double(_duration) / 1E6;
     }
     
     public func setup(url : String) {

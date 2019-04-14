@@ -83,8 +83,8 @@ class ViewController: NSViewController {
     }
     
     func updateUI() {
-        let current = mNativePLayer.progress()
-        let duration = mNativePLayer.duration()
+        let current = mNativePLayer.currentPosition
+        let duration = mNativePLayer.duration
         
         mCurrentPosition.stringValue = formatTime(seconds: current)
         mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
@@ -167,9 +167,9 @@ class ViewController: NSViewController {
         if (special != nil) {
             switch (special) {
             case NSEvent.SpecialKey.rightArrow:
-                mNativePLayer.prepare(seconds: mNativePLayer.progress() + 5)
+                mNativePLayer.prepare(seconds: mNativePLayer.currentPosition + 5)
             case NSEvent.SpecialKey.leftArrow:
-                mNativePLayer.prepare(seconds: mNativePLayer.progress() - 5)
+                mNativePLayer.prepare(seconds: mNativePLayer.currentPosition - 5)
             default:
                 break;
             }
@@ -209,7 +209,7 @@ class ViewController: NSViewController {
     }
     
     @IBAction func seek(sender : Any) {
-        let sec = mNativePLayer.duration() * mPositionSlider.doubleValue / mPositionSlider.maxValue;
+        let sec = mNativePLayer.duration * mPositionSlider.doubleValue / mPositionSlider.maxValue;
         NSLog("seek to %@", sec)
         mNativePLayer.prepare(seconds: sec)
         showUI(visible: true)
