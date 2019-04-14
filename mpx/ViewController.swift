@@ -143,9 +143,10 @@ class ViewController: NSViewController {
         closeFile()
         mNativePLayer.setup(url: url)
         mNativePLayer.prepare(seconds: 0)
+        mNativePLayer.startOrPause()
         
         // show ui
-        updateUIOnce(title: url)
+        showUI(visible: true)
     }
     
     func openFile() {
