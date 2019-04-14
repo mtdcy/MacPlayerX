@@ -26,6 +26,6 @@ class Preferences {
     }
     
     public func show() {
-        print("openGL: ", usingOpenGL)
+        NSLog("openGL: %d", usingOpenGL)
     }
 }

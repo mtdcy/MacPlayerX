@@ -131,7 +131,8 @@ class NativePlayer : NSObject {
         // setup log callback
         // https://originware.com/blog/?p=265
         LogSetCallback { (line : UnsafePointer<Int8>?) in
-            print(String.init(cString: line!))
+            // print won't send to syslog
+            NSLog(String.init(cString: line!))
         }
     }
     
