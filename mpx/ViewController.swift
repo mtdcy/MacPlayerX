@@ -149,28 +149,17 @@ class ViewController: NSViewController {
     func openFile() {
         NSLog("Open File...")
         
-        mNativePLayer.clear()
-        
-        let dialog = NSOpenPanel()
-        dialog.title                    = "Open File..."
-        dialog.showsResizeIndicator     = true
-        dialog.showsHiddenFiles         = false
-        dialog.canChooseFiles           = true
-        dialog.canChooseDirectories     = false
-        dialog.allowsMultipleSelection  = false
-        dialog.allowedFileTypes         = ["mp4","mkv","mp3"]
-        
-        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
-            if (dialog.url != nil) {
-                let url = dialog.url!.path
-                NSLog("url = %@", url)
-                
-                mNativePLayer.setup(url: url)
-                mNativePLayer.prepare(seconds: 0)
-                
-                // show ui
-                updateUIOnce(title: url)
-            }
+        let url = NSDocumentController.shared.urlsFromRunningOpenPanel()
+        if (url != nil) {
+            NSLog("url = %@", url!)
+            let path : String = url![0].path
+     
+            mNativePLayer.clear()
+            mNativePLayer.setup(url: path)
+            mNativePLayer.prepare(seconds: 0)
+            
+            // show ui
+            updateUIOnce(title: path)
         } else {
             NSLog("Cancel Open File...")
         }
