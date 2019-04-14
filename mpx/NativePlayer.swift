@@ -27,12 +27,11 @@ class NativePlayer : NSObject {
     var mLock : NSLock = NSLock()
     var mMediaFrame : MediaFrameRef?
     
-    var mIsOpenGLEnabled : Bool = false         // kInfoOpenGLEnabled
     var mIsVideoToolboxEnabled : Bool = false   // kInfoVideoToolboxEnabled
     var mIsPlaying : Bool = false
     
     var isOpenGL : Bool {
-        return mIsOpenGLEnabled == true && mIsVideoToolboxEnabled == true
+        return mIsVideoToolboxEnabled;
     }
     
     var isPlaying : Bool {
@@ -45,8 +44,6 @@ class NativePlayer : NSObject {
             mIsPlaying = true
         case kInfoPlayerPaused, kInfoEndOfStream, kInfoPlayerFlushed, kInfoPlayerReleased:
             mIsPlaying = false
-        case kInfoOpenGLEnabled:
-            mIsOpenGLEnabled = true
         case kInfoVideoToolboxEnabled:
             mIsVideoToolboxEnabled = true
         default:
@@ -68,6 +65,12 @@ class NativePlayer : NSObject {
             mMediaOut = MediaOutCreate(kCodecTypeVideo)
             
             let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(mMediaFrame)
+            
+            if (imageFormat.pointee.format == kPixelFormatVideoToolbox) {
+                mIsVideoToolboxEnabled = true;
+            } else {
+                mIsVideoToolboxEnabled = false;
+            }
             
             let format = SharedMessageCreate();
             SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))

@@ -53,9 +53,6 @@ class ViewController: NSViewController {
         // not working, but still put this line
         self.view.window?.isMovableByWindowBackground = true
         
-        // init values
-        mInfoText.stringValue = "OpenGL"
-        
         // show UI at beginning
         showUI(visible: true)
     }
@@ -98,20 +95,15 @@ class ViewController: NSViewController {
     func showUI(visible : Bool) {
         if (visible) {
             NSLog("showUI...");
-            if (mIsVisible == true) {
-                NSLog("showUI: UI is already visible");
+
+            self.view.window?.titleVisibility = NSWindow.TitleVisibility.visible
+            mPositionStack.isHidden = false
+            
+            if (mNativePLayer.isOpenGL == true) {
+                mInfoText.isHidden = false
+                mInfoText.stringValue = "OpenGL"
             } else {
-                self.view.window?.titleVisibility = NSWindow.TitleVisibility.visible
-                mPositionStack.isHidden = false
-                
-                if (mNativePLayer.isOpenGL == true) {
-                    mInfoText.isHidden = false
-                    mInfoText.stringValue = "OpenGL"
-                    Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer : Timer) in
-                        self.mInfoText.isHidden = true
-                        timer.invalidate()
-                    }
-                }
+                mInfoText.isHidden = true
             }
             
             updateUIOnce(title: nil)
