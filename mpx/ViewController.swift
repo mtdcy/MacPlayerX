@@ -137,20 +137,23 @@ class ViewController: NSViewController {
         }
     }
     
+    public func openFile(url : String) {
+        NSLog("url = %@", url)
+        
+        closeFile()
+        mNativePLayer.setup(url: url)
+        mNativePLayer.prepare(seconds: 0)
+        
+        // show ui
+        updateUIOnce(title: url)
+    }
+    
     func openFile() {
         NSLog("Open File...")
         
         let url = NSDocumentController.shared.urlsFromRunningOpenPanel()
         if (url != nil) {
-            NSLog("url = %@", url!)
-            let path : String = url![0].path
-     
-            closeFile()
-            mNativePLayer.setup(url: path)
-            mNativePLayer.prepare(seconds: 0)
-            
-            // show ui
-            updateUIOnce(title: path)
+            openFile(url: url![0].path)
         } else {
             NSLog("Cancel Open File...")
         }
