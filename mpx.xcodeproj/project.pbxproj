@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5750AA592262C2BB00A956D9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AA582262C2BB00A956D9 /* Preferences.swift */; };
+		5750AA782262F21F00A956D9 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5750AA792262F21F00A956D9 /* FFmpeg.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A32261AA300059C5B6 /* FFmpeg.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5750AA7A2262F21F00A956D9 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		576334A62261AA300059C5B6 /* FFmpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A32261AA300059C5B6 /* FFmpeg.framework */; };
 		576334A72261AA300059C5B6 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; };
 		576334A82261AA300059C5B6 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; };
@@ -26,13 +29,16 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		57F315A922609055000D6B77 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				5750AA782262F21F00A956D9 /* ABE.framework in Embed Frameworks */,
+				5750AA792262F21F00A956D9 /* FFmpeg.framework in Embed Frameworks */,
+				5750AA7A2262F21F00A956D9 /* MediaFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
