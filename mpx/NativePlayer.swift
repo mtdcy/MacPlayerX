@@ -64,6 +64,7 @@ class NativePlayer : NSObject {
             if (mMediaOut != nil) {
                 MediaOutFlush(mMediaOut)
             }
+            mLock.unlock()
             return
         }
         
