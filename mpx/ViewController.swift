@@ -18,6 +18,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var mPositionSlider: NSSlider!
     @IBOutlet weak var mInfoText: NSTextField!
     
+    var mPrefs = Preferences()
+    
     var mIsVisible : Bool?              // true, false, nil
     var mUpdater : Timer?
     let mUpdateInterval : Double = 0.2
@@ -41,6 +43,8 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("View Did Load")
+        
+        mPrefs.show()
         
         // setup OpenGL Context
         NSLog("OpenGLContext: %@", mOpenGLView.openGLContext!)
@@ -102,6 +106,7 @@ class ViewController: NSViewController {
                 
                 if (mNativePLayer.isOpenGL == true) {
                     mInfoText.isHidden = false
+                    mInfoText.stringValue = "OpenGL"
                     Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { (timer : Timer) in
                         self.mInfoText.isHidden = true
                         timer.invalidate()

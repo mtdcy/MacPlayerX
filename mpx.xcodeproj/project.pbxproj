@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5750AA592262C2BB00A956D9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AA582262C2BB00A956D9 /* Preferences.swift */; };
 		576334A62261AA300059C5B6 /* FFmpeg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A32261AA300059C5B6 /* FFmpeg.framework */; };
 		576334A72261AA300059C5B6 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; };
 		576334A82261AA300059C5B6 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; };
@@ -36,6 +37,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5750AA582262C2BB00A956D9 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		576334A32261AA300059C5B6 /* FFmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FFmpeg.framework; path = ../../Library/Frameworks/FFmpeg.framework; sourceTree = "<group>"; };
 		576334A42261AA300059C5B6 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaFramework.framework; path = ../../Library/Frameworks/MediaFramework.framework; sourceTree = "<group>"; };
 		576334A52261AA300059C5B6 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ABE.framework; path = ../../Library/Frameworks/ABE.framework; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			children = (
 				57F3157C22608C98000D6B77 /* AppDelegate.swift */,
 				57F3157E22608C98000D6B77 /* ViewController.swift */,
+				5750AA582262C2BB00A956D9 /* Preferences.swift */,
 				57F3159922608D1A000D6B77 /* BaseView.swift */,
 				57F3159C22608D1A000D6B77 /* mpx-Bridging-Header.h */,
 				57F3159B22608D1A000D6B77 /* NativePlayer.swift */,
@@ -191,6 +194,7 @@
 				57F315A122608D1A000D6B77 /* (null) in Sources */,
 				57F3159F22608D1A000D6B77 /* OpenGLView.swift in Sources */,
 				57F3159E22608D1A000D6B77 /* PrefsViewController.swift in Sources */,
+				5750AA592262C2BB00A956D9 /* Preferences.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
