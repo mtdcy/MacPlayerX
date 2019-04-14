@@ -287,7 +287,7 @@
         <scene sceneID="8ed-9E-ibS">
             <objects>
                 <windowController id="qkf-ML-ws1" sceneMemberID="viewController">
-                    <window key="window" title="PrefsWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="EIH-xk-ivN" customClass="Prefs">
+                    <window key="window" title="PrefsWindow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="EIH-xk-ivN">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="294" y="313" width="480" height="270"/>
