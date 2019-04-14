@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "57F3157822608C98000D6B77"
-               BuildableName = "mpx.app"
-               BlueprintName = "mpx"
-               ReferencedContainer = "container:mpx.xcodeproj">
+               BuildableName = "MediaPlayerX.app"
+               BlueprintName = "MediaPlayerX"
+               ReferencedContainer = "container:MediaPlayerX.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "57F3157822608C98000D6B77"
-            BuildableName = "mpx.app"
-            BlueprintName = "mpx"
-            ReferencedContainer = "container:mpx.xcodeproj">
+            BuildableName = "MediaPlayerX.app"
+            BlueprintName = "MediaPlayerX"
+            ReferencedContainer = "container:MediaPlayerX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "57F3157822608C98000D6B77"
-            BuildableName = "mpx.app"
-            BlueprintName = "mpx"
-            ReferencedContainer = "container:mpx.xcodeproj">
+            BuildableName = "MediaPlayerX.app"
+            BlueprintName = "MediaPlayerX"
+            ReferencedContainer = "container:MediaPlayerX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "57F3157822608C98000D6B77"
-            BuildableName = "mpx.app"
-            BlueprintName = "mpx"
-            ReferencedContainer = "container:mpx.xcodeproj">
+            BuildableName = "MediaPlayerX.app"
+            BlueprintName = "MediaPlayerX"
+            ReferencedContainer = "container:MediaPlayerX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

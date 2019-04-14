@@ -47,7 +47,7 @@
 		576334A32261AA300059C5B6 /* FFmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FFmpeg.framework; path = ../../Library/Frameworks/FFmpeg.framework; sourceTree = "<group>"; };
 		576334A42261AA300059C5B6 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaFramework.framework; path = ../../Library/Frameworks/MediaFramework.framework; sourceTree = "<group>"; };
 		576334A52261AA300059C5B6 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ABE.framework; path = ../../Library/Frameworks/ABE.framework; sourceTree = "<group>"; };
-		57F3157922608C98000D6B77 /* mpx.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mpx.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57F3157922608C98000D6B77 /* MediaPlayerX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MediaPlayerX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F3157C22608C98000D6B77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57F3157E22608C98000D6B77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		57F3158022608C98000D6B77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		57F3157A22608C98000D6B77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				57F3157922608C98000D6B77 /* mpx.app */,
+				57F3157922608C98000D6B77 /* MediaPlayerX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,9 +124,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		57F3157822608C98000D6B77 /* mpx */ = {
+		57F3157822608C98000D6B77 /* MediaPlayerX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 57F3158922608C98000D6B77 /* Build configuration list for PBXNativeTarget "mpx" */;
+			buildConfigurationList = 57F3158922608C98000D6B77 /* Build configuration list for PBXNativeTarget "MediaPlayerX" */;
 			buildPhases = (
 				57F3157522608C98000D6B77 /* Sources */,
 				57F3157622608C98000D6B77 /* Frameworks */,
@@ -137,9 +137,9 @@
 			);
 			dependencies = (
 			);
-			name = mpx;
+			name = MediaPlayerX;
 			productName = mpx;
-			productReference = 57F3157922608C98000D6B77 /* mpx.app */;
+			productReference = 57F3157922608C98000D6B77 /* MediaPlayerX.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -157,7 +157,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 57F3157422608C98000D6B77 /* Build configuration list for PBXProject "mpx" */;
+			buildConfigurationList = 57F3157422608C98000D6B77 /* Build configuration list for PBXProject "MediaPlayerX" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -170,7 +170,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				57F3157822608C98000D6B77 /* mpx */,
+				57F3157822608C98000D6B77 /* MediaPlayerX */,
 			);
 		};
 /* End PBXProject section */
@@ -388,7 +388,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		57F3157422608C98000D6B77 /* Build configuration list for PBXProject "mpx" */ = {
+		57F3157422608C98000D6B77 /* Build configuration list for PBXProject "MediaPlayerX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57F3158722608C98000D6B77 /* Debug */,
@@ -397,7 +397,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		57F3158922608C98000D6B77 /* Build configuration list for PBXNativeTarget "mpx" */ = {
+		57F3158922608C98000D6B77 /* Build configuration list for PBXNativeTarget "MediaPlayerX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				57F3158A22608C98000D6B77 /* Debug */,
