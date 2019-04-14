@@ -58,7 +58,7 @@ class ViewController: NSViewController {
     }
     
     override func viewWillDisappear() {
-        mNativePLayer.clear()
+        closeFile()
         
         NSLog("View Will Disappear")
         super.viewWillDisappear()
@@ -79,8 +79,6 @@ class ViewController: NSViewController {
         if (title != nil) {
             self.view.window?.title = title!
         }
-        let duration = mNativePLayer.duration()
-        mTotalDuration.stringValue = formatTime(seconds: duration)
         updateUI()
     }
     
@@ -90,6 +88,7 @@ class ViewController: NSViewController {
         
         mCurrentPosition.stringValue = formatTime(seconds: current)
         mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
+        mTotalDuration.stringValue = formatTime(seconds: duration)
     }
     
     func showUI(visible : Bool) {
@@ -146,7 +145,7 @@ class ViewController: NSViewController {
             NSLog("url = %@", url!)
             let path : String = url![0].path
      
-            mNativePLayer.clear()
+            closeFile()
             mNativePLayer.setup(url: path)
             mNativePLayer.prepare(seconds: 0)
             
@@ -155,6 +154,10 @@ class ViewController: NSViewController {
         } else {
             NSLog("Cancel Open File...")
         }
+    }
+    
+    func closeFile() {
+        mNativePLayer.clear()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -178,7 +181,7 @@ class ViewController: NSViewController {
             case " ":
                 mNativePLayer.startOrPause()
             case "q":
-                mNativePLayer.clear()
+                closeFile()
             default:
                 break
             }

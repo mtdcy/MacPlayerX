@@ -39,7 +39,13 @@ class NativePlayer : NSObject {
     }
     
     func onPlayerInfo(info : eInfoType) {
+        NSLog("Player Info -> %d", info.rawValue)
         switch (info) {
+        case kInfoPlayerReady:
+            mInfo = MediaPlayerGetInfo(mHandle)
+            assert(mInfo != nil)
+            mClock = MediaPlayerGetClock(mHandle)
+            assert(mClock != nil)
         case kInfoPlayerPlaying:
             mIsPlaying = true
         case kInfoPlayerPaused, kInfoEndOfStream, kInfoPlayerFlushed, kInfoPlayerReleased:
@@ -47,7 +53,7 @@ class NativePlayer : NSObject {
         case kInfoVideoToolboxEnabled:
             mIsVideoToolboxEnabled = true
         default:
-            NSLog("Player Info -> %d", info.rawValue)
+            break
         }
     }
     
@@ -155,10 +161,9 @@ class NativePlayer : NSObject {
         let media : MessageRef = SharedMessageCreate()
         SharedMessagePutString(media, "url", url)
         
-        NSLog("MediaPlayerCreate");
+        NSLog("MediaPlayerCreate")
         mHandle = MediaPlayerCreate(media, options)
-        mClock = MediaPlayerGetClock(mHandle)
-        mInfo = MediaPlayerGetInfo(mHandle)
+        assert(mHandle != nil)
         
         // release refs
         SharedObjectRelease(options)
@@ -167,24 +172,21 @@ class NativePlayer : NSObject {
     
     public func prepare(seconds : Double) {
         if (mHandle != nil) {
-            NSLog("MediaPlayerPrepare");
-            MediaPlayerPrepare(mHandle, Int64(seconds * 1E6))
+            NSLog("MediaPlayerPrepare")
+            assert(MediaPlayerPrepare(mHandle, Int64(seconds * 1E6)) == kMediaNoError)
         }
     }
     
     public func startOrPause() -> Bool {
         if (mHandle != nil) {
-            let state = MediaPlayerGetState(mHandle)
-            if (state == kStatePlaying) {
-                NSLog("MediaPlayerPause");
-                MediaPlayerPause(mHandle)
+            if (isPlaying == true) {
+                NSLog("MediaPlayerPause")
+                assert(MediaPlayerPause(mHandle) == kMediaNoError)
                 return false
-            } else if (state == kStateReady || state == kStateIdle) {
-                NSLog("MediaPlayerStart");
-                MediaPlayerStart(mHandle)
-                return true
             } else {
-                NSLog("MediaPlayer bad state")
+                NSLog("MediaPlayerStart")
+                assert(MediaPlayerStart(mHandle) == kMediaNoError)
+                return true
             }
         }
         return false
@@ -193,25 +195,13 @@ class NativePlayer : NSObject {
     public func flush() {
         if (mHandle != nil) {
             NSLog("MediaPlayerFlush");
-            let state = MediaPlayerGetState(mHandle)
-            if (state == kStatePlaying) {
-                MediaPlayerPause(mHandle)
-            }
-            MediaPlayerFlush(mHandle)
+            assert(MediaPlayerFlush(mHandle) == kMediaNoError)
         }
     }
     
     public func clear() {
         if (mHandle != nil) {
             NSLog("MediaPlayerRelease");
-            let state = MediaPlayerGetState(mHandle)
-            if (state == kStatePlaying) {
-                MediaPlayerPause(mHandle)
-                MediaPlayerFlush(mHandle)
-            } else if (state == kStateIdle) {
-                MediaPlayerFlush(mHandle)
-            }
-            
             MediaPlayerRelease(mHandle)
             mHandle = nil
         }
@@ -227,6 +217,7 @@ class NativePlayer : NSObject {
         }
         
         if (mMediaOut != nil) {
+            MediaOutFlush(mMediaOut)
             SharedObjectRelease(mMediaOut)
             mMediaOut = nil
         }
