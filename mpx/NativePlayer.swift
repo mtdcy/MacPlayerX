@@ -65,9 +65,9 @@ class NativePlayer : NSObject {
         }
         
         if (mMediaOut == nil) {
-            self.mMediaOut = MediaOutCreate(kCodecTypeVideo)
+            mMediaOut = MediaOutCreate(kCodecTypeVideo)
             
-            let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(self.mMediaFrame)
+            let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(mMediaFrame)
             
             let format = SharedMessageCreate();
             SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
@@ -75,16 +75,13 @@ class NativePlayer : NSObject {
             SharedMessagePutInt32(format, kKeyHeight, imageFormat.pointee.height)
             
             let options = SharedMessageCreate();
-            if (MediaFrameGetOpaque(mMediaFrame) != nil) {
-                SharedMessagePutInt32(options, kKeyOpenGLCompatible, 1)
-            }
-            MediaOutPrepare(self.mMediaOut, format, options)
+            MediaOutPrepare(mMediaOut, format, options)
             
             SharedObjectRelease(format)
             SharedObjectRelease(options)
         }
         
-        MediaOutWrite(self.mMediaOut, mMediaFrame)
+        MediaOutWrite(mMediaOut, mMediaFrame)
         mLock.unlock()
     }
     
