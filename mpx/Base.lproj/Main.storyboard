@@ -204,21 +204,24 @@
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                             </openGLView>
                             <stackView orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="43"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="44"/>
                                 <edgeInsets key="edgeInsets" left="12" right="12" top="12" bottom="12"/>
                                 <beginningViews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4K-AG-3c7">
-                                        <rect key="frame" x="10" y="12" width="44" height="19"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="nKQ-nQ-iq5">
-                                            <font key="font" metaFont="system" size="16"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4K-AG-3c7">
+                                        <rect key="frame" x="10" y="12" width="51" height="20"/>
+                                        <textFieldCell key="cell" enabled="NO" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="nKQ-nQ-iq5">
+                                            <font key="font" size="14" name="Menlo-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <allowedInputSourceLocales>
+                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                            </allowedInputSourceLocales>
                                         </textFieldCell>
                                     </textField>
                                 </beginningViews>
                                 <middleViews>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-hL-2Of">
-                                        <rect key="frame" x="62" y="12" width="676" height="19"/>
+                                        <rect key="frame" x="69" y="13" width="662" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
                                         <connections>
                                             <action selector="seekWithSender:" target="XfG-lQ-9wD" id="VEz-QQ-bYk"/>
@@ -226,12 +229,15 @@
                                     </slider>
                                 </middleViews>
                                 <endViews>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5l5-Yo-idS">
-                                        <rect key="frame" x="746" y="12" width="44" height="19"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="gyj-Ts-oki">
-                                            <font key="font" metaFont="system" size="16"/>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5l5-Yo-idS">
+                                        <rect key="frame" x="739" y="12" width="51" height="20"/>
+                                        <textFieldCell key="cell" enabled="NO" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="gyj-Ts-oki">
+                                            <font key="font" size="14" name="Menlo-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <allowedInputSourceLocales>
+                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                            </allowedInputSourceLocales>
                                         </textFieldCell>
                                     </textField>
                                 </endViews>
