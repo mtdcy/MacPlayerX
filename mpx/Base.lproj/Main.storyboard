@@ -203,14 +203,14 @@
                             <openGLView wantsLayer="YES" useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="mpx" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                             </openGLView>
-                            <stackView orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="41"/>
+                            <stackView orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="43"/>
                                 <edgeInsets key="edgeInsets" left="12" right="12" top="12" bottom="12"/>
                                 <beginningViews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D4K-AG-3c7">
-                                        <rect key="frame" x="10" y="12" width="37" height="17"/>
+                                        <rect key="frame" x="10" y="12" width="44" height="19"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="nKQ-nQ-iq5">
-                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <font key="font" metaFont="system" size="16"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
@@ -218,7 +218,7 @@
                                 </beginningViews>
                                 <middleViews>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-hL-2Of">
-                                        <rect key="frame" x="51" y="11" width="698" height="19"/>
+                                        <rect key="frame" x="62" y="12" width="676" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
                                         <connections>
                                             <action selector="seekWithSender:" target="XfG-lQ-9wD" id="VEz-QQ-bYk"/>
@@ -227,9 +227,9 @@
                                 </middleViews>
                                 <endViews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5l5-Yo-idS">
-                                        <rect key="frame" x="753" y="12" width="37" height="17"/>
+                                        <rect key="frame" x="746" y="12" width="44" height="19"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="gyj-Ts-oki">
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="system" size="16"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
