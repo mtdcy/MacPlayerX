@@ -109,7 +109,7 @@ class NativePlayer : NSObject {
         mLock.unlock()
     }
     
-    func updateMediaFrame(current : MediaFrameRef?) {
+    func onVideoUpdate(current : MediaFrameRef?) {
         //NSLog("FrameCallback");
         if (current != nil) {
             mLock.lock()
@@ -124,6 +124,15 @@ class NativePlayer : NSObject {
         DispatchQueue.main.async {
             self.draw()
         }
+    }
+    
+    func onAudioUpdate(current : MediaFrameRef?) {
+        guard current != nil else {
+            NSLog("nil audio frame")
+            return
+        }
+        
+        // TODO
     }
     
     override init() {
@@ -144,14 +153,6 @@ class NativePlayer : NSObject {
         // setup options
         let options : MessageRef = SharedMessageCreate()
         
-        // MediaFrame Callback
-        let OnFrameUpdate : FrameEventRef = FrameEventCreate({ (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
-            let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
-            context.updateMediaFrame(current: current)
-        }, Unmanaged.passUnretained(self).toOpaque())
-        SharedMessagePutObject(options, "MediaFrameEvent", OnFrameUpdate)
-        SharedObjectRelease(OnFrameUpdate)
-        
         let OnInfoUpdate : InfoEventRef = InfoEventCreate({ (info : eInfoType, user : UnsafeMutableRawPointer?) in
             let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
             context.onPlayerInfo(info: info)
@@ -161,6 +162,14 @@ class NativePlayer : NSObject {
 
         let media : MessageRef = SharedMessageCreate()
         SharedMessagePutString(media, "url", url)
+        
+        // MediaFrame Callback
+        let OnVideoUpdate : FrameEventRef = FrameEventCreate({ (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
+            let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
+            context.onVideoUpdate(current: current)
+        }, Unmanaged.passUnretained(self).toOpaque())
+        SharedMessagePutObject(media, "VideoFrameEvent", OnVideoUpdate)
+        SharedObjectRelease(OnVideoUpdate)
         
         NSLog("MediaPlayerCreate")
         mHandle = MediaPlayerCreate(media, options)
