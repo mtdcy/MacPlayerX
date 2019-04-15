@@ -87,8 +87,12 @@ class ViewController: NSViewController {
         let duration = mNativePLayer.duration
         
         mCurrentPosition.stringValue = formatTime(seconds: current)
-        mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
         mTotalDuration.stringValue = formatTime(seconds: duration)
+        
+        // only update slider when playing
+        if (mNativePLayer.isPlaying) {
+            mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
+        }
     }
     
     func showUI(visible : Bool) {

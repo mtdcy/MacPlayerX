@@ -165,7 +165,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="mpx" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MediaPlayerX" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -195,12 +195,12 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="mpx" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl" customClass="BaseView" customModule="mpx" customModuleProvider="target">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MediaPlayerX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="m2S-Jp-Qdl" customClass="BaseView" customModule="MediaPlayerX" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <openGLView wantsLayer="YES" antiAliasingType="multisample" useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="mpx" customModuleProvider="target">
+                            <openGLView wantsLayer="YES" antiAliasingType="multisample" useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="MediaPlayerX" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                             </openGLView>
                             <stackView orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
@@ -222,7 +222,7 @@
                                 <middleViews>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-hL-2Of">
                                         <rect key="frame" x="69" y="13" width="662" height="19"/>
-                                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
+                                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
                                         <connections>
                                             <action selector="seekWithSender:" target="XfG-lQ-9wD" id="VEz-QQ-bYk"/>
                                         </connections>
@@ -313,7 +313,7 @@
         <!--Prefs View Controller-->
         <scene sceneID="lgG-Yr-8Sp">
             <objects>
-                <viewController id="VzB-vj-emd" customClass="PrefsViewController" customModule="mpx" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VzB-vj-emd" customClass="PrefsViewController" customModule="MediaPlayerX" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="nXr-jM-Qdk">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
