@@ -52,7 +52,7 @@ class NativePlayer : NSObject {
         return Double(SharedMessageGetInt64(mInfo, kKeyDuration, 0)) / 1E6
     }
     
-    func onPlayerInfo(info : eInfoType) {
+    func onPlayerInfo(info : ePlayerInfoType) {
         NSLog("Player Info -> %d", info.rawValue)
         switch (info) {
         case kInfoPlayerReady:
@@ -62,7 +62,7 @@ class NativePlayer : NSObject {
             assert(mClock != nil)
         case kInfoPlayerPlaying:
             mIsPlaying = true
-        case kInfoPlayerPaused, kInfoEndOfStream, kInfoPlayerFlushed, kInfoPlayerReleased:
+        case kInfoPlayerPaused, kInfoEndOfFile, kInfoPlayerFlushed, kInfoPlayerReleased:
             mIsPlaying = false
         case kInfoVideoToolboxEnabled:
             mIsVideoToolboxEnabled = true
@@ -153,11 +153,11 @@ class NativePlayer : NSObject {
         // setup options
         let options : MessageRef = SharedMessageCreate()
         
-        let OnInfoUpdate : InfoEventRef = InfoEventCreate({ (info : eInfoType, user : UnsafeMutableRawPointer?) in
+        let OnInfoUpdate : PlayerInfoEventRef = PlayerInfoEventCreate({ (info : ePlayerInfoType, user : UnsafeMutableRawPointer?) in
             let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
             context.onPlayerInfo(info: info)
         }, Unmanaged.passUnretained(self).toOpaque())
-        SharedMessagePutObject(options, "InfomationEvent", OnInfoUpdate)
+        SharedMessagePutObject(options, "PlayerInfoEvent", OnInfoUpdate)
         SharedObjectRelease(OnInfoUpdate)
 
         let media : MessageRef = SharedMessageCreate()
