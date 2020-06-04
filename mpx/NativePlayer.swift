@@ -19,10 +19,11 @@ protocol PlayerProtocol {
 class NativePlayer : NSObject {
     //var mDelegate : PlayerProtocol?
     
+    var mLooper : LooperObjectRef?
     var mHandle : MediaPlayerRef?
     var mClock : MediaClockRef?
-    var mInfo : MessageRef?
     var mMediaOut : MediaOutRef?
+    var mFileInfo : SharedObjectRef?
     
     var mLock : NSLock = NSLock()
     var mMediaFrame : MediaFrameRef?
@@ -46,23 +47,22 @@ class NativePlayer : NSObject {
     }
     
     var duration : Double {
-        if (mInfo == nil) {
+        if (mFileInfo == nil) {
             return 0
         }
-        return Double(SharedMessageGetInt64(mInfo, kKeyDuration, 0)) / 1E6
+        return Double(MessageObjectGetInt64(mFileInfo, kKeyDuration, 0)) / 1E6
     }
     
-    func onPlayerInfo(info : ePlayerInfoType) {
+    func onPlayerInfo(info : ePlayerInfoType, payload : MessageObjectRef?) {
         NSLog("Player Info -> %d", info.rawValue)
         switch (info) {
         case kInfoPlayerReady:
-            mInfo = MediaPlayerGetInfo(mHandle)
-            assert(mInfo != nil)
-            mClock = MediaPlayerGetClock(mHandle)
-            assert(mClock != nil)
+            NSLog("player is ready")
+            assert(payload != nil)
+            mFileInfo = SharedObjectRetain(payload)
         case kInfoPlayerPlaying:
             mIsPlaying = true
-        case kInfoPlayerPaused, kInfoEndOfFile, kInfoPlayerFlushed, kInfoPlayerReleased:
+        case kInfoPlayerPaused, kInfoEndOfFile:
             mIsPlaying = false
         case kInfoVideoToolboxEnabled:
             mIsVideoToolboxEnabled = true
@@ -83,23 +83,22 @@ class NativePlayer : NSObject {
         }
         
         if (mMediaOut == nil) {
-            mMediaOut = MediaOutCreate(kCodecTypeVideo)
-            
             let imageFormat : UnsafeMutablePointer<ImageFormat> = MediaFrameGetImageFormat(mMediaFrame)
+            let format  = MessageObjectCreate();
+            let options = MessageObjectCreate();
             
+            MessageObjectPutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
+            MessageObjectPutInt32(format, kKeyWidth, imageFormat.pointee.width)
+            MessageObjectPutInt32(format, kKeyHeight, imageFormat.pointee.height)
+            MessageObjectPutInt32(format, kKeyCodecType, Int32(kCodecTypeVideo.rawValue));
+            
+            mMediaOut = MediaOutCreate(format, options);
+                        
             if (imageFormat.pointee.format == kPixelFormatVideoToolbox) {
                 mIsVideoToolboxEnabled = true;
             } else {
                 mIsVideoToolboxEnabled = false;
             }
-            
-            let format = SharedMessageCreate();
-            SharedMessagePutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
-            SharedMessagePutInt32(format, kKeyWidth, imageFormat.pointee.width)
-            SharedMessagePutInt32(format, kKeyHeight, imageFormat.pointee.height)
-            
-            let options = SharedMessageCreate();
-            MediaOutPrepare(mMediaOut, format, options)
             
             SharedObjectRelease(format)
             SharedObjectRelease(options)
@@ -150,40 +149,54 @@ class NativePlayer : NSObject {
 
         clear()
         
-        // setup options
-        let options : MessageRef = SharedMessageCreate()
+        mLooper = LooperObjectCreate("NativePlayer")
         
-        let OnInfoUpdate : PlayerInfoEventRef = PlayerInfoEventCreate({ (info : ePlayerInfoType, user : UnsafeMutableRawPointer?) in
+        // setup options
+        let media : MessageObjectRef    = MessageObjectCreate()
+        let options : MessageObjectRef  = MessageObjectCreate()
+        
+        MessageObjectPutString(media, "url", url)
+        
+        let OnInfoUpdate : PlayerInfoEventRef = PlayerInfoEventCreate(
+            mLooper,    // LooperObjectRef
+            // PlayerInfoCallback
+        {
+            (info : ePlayerInfoType, payload : MessageObjectRef?, user : UnsafeMutableRawPointer?) in
             let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
-            context.onPlayerInfo(info: info)
-        }, Unmanaged.passUnretained(self).toOpaque())
-        SharedMessagePutObject(options, "PlayerInfoEvent", OnInfoUpdate)
+            context.onPlayerInfo(info: info, payload: payload)
+        },
+        Unmanaged.passUnretained(self).toOpaque()   // user context
+        )
+        MessageObjectPutObject(options, "PlayerInfoEvent", OnInfoUpdate)
         SharedObjectRelease(OnInfoUpdate)
 
-        let media : MessageRef = SharedMessageCreate()
-        SharedMessagePutString(media, "url", url)
-        
         // MediaFrame Callback
-        let OnVideoUpdate : FrameEventRef = FrameEventCreate({ (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
+        let OnVideoUpdate : FrameEventRef = FrameEventCreate(
+            mLooper,
+        {
+            (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
             let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
             context.onVideoUpdate(current: current)
         }, Unmanaged.passUnretained(self).toOpaque())
-        SharedMessagePutObject(media, "VideoFrameEvent", OnVideoUpdate)
+        MessageObjectPutObject(media, "VideoFrameEvent", OnVideoUpdate)
         SharedObjectRelease(OnVideoUpdate)
         
         NSLog("MediaPlayerCreate")
         mHandle = MediaPlayerCreate(media, options)
         assert(mHandle != nil)
         
+        mClock  = MediaPlayerGetClock(mHandle)
+        assert(mClock != nil)
+        
         // release refs
-        SharedObjectRelease(options)
         SharedObjectRelease(media)
+        SharedObjectRelease(options)
     }
     
     public func prepare(seconds : Double) {
         if (mHandle != nil) {
             NSLog("MediaPlayerPrepare")
-            assert(MediaPlayerPrepare(mHandle, Int64(seconds * 1E6)) == kMediaNoError)
+            MediaPlayerPrepare(mHandle, Int64(seconds * 1E6))
         }
     }
     
@@ -191,28 +204,21 @@ class NativePlayer : NSObject {
         if (mHandle != nil) {
             if (isPlaying == true) {
                 NSLog("MediaPlayerPause")
-                assert(MediaPlayerPause(mHandle) == kMediaNoError)
+                MediaPlayerPause(mHandle)
                 return false
             } else {
                 NSLog("MediaPlayerStart")
-                assert(MediaPlayerStart(mHandle) == kMediaNoError)
+                MediaPlayerStart(mHandle)
                 return true
             }
         }
         return false
     }
     
-    public func flush() {
-        if (mHandle != nil) {
-            NSLog("MediaPlayerFlush");
-            assert(MediaPlayerFlush(mHandle) == kMediaNoError)
-        }
-    }
-    
     public func clear() {
         if (mHandle != nil) {
             NSLog("MediaPlayerRelease");
-            MediaPlayerRelease(mHandle)
+            SharedObjectRelease(mHandle)
             mHandle = nil
         }
         
@@ -221,9 +227,9 @@ class NativePlayer : NSObject {
             mClock = nil
         }
         
-        if (mInfo != nil) {
-            SharedObjectRelease(mInfo)
-            mInfo = nil
+        if (mFileInfo != nil) {
+            SharedObjectRelease(mFileInfo)
+            mFileInfo = nil
         }
         
         if (mMediaOut != nil) {
@@ -235,6 +241,11 @@ class NativePlayer : NSObject {
         if (mMediaFrame != nil) {
             SharedObjectRelease(mMediaFrame)
             mMediaFrame = nil
+        }
+        
+        if (mLooper != nil) {
+            SharedObjectRelease(mLooper)
+            mLooper = nil
         }
     }
 }

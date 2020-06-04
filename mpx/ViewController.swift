@@ -48,7 +48,7 @@ class ViewController: NSViewController {
         
         // setup OpenGL Context
         NSLog("OpenGLContext: %@", mOpenGLView.openGLContext!)
-        mOpenGLView.prepareOpenGL()
+        mOpenGLView.openGLContext?.makeCurrentContext()
         
         // not working, but still put this line
         self.view.window?.isMovableByWindowBackground = true
