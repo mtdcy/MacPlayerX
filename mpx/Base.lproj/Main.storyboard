@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,11 +12,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="MediaPlayerX" id="1Xt-HY-uBw">
+                            <menuItem title="Tiger" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="MediaPlayerX" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Tiger" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About MediaPlayerX" id="5kV-Vb-QxS">
+                                        <menuItem title="About Tiger" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -33,7 +34,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide MediaPlayerX" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide Tiger" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -51,7 +52,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit MediaPlayerX" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit Tiger" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -151,7 +152,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="MediaPlayerX Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="Tiger Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -165,7 +166,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MediaPlayerX" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Tiger" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -175,7 +176,7 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="MediaPlayerX" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
+                    <window key="window" title="Tiger" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="196" y="240" width="800" height="480"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -195,20 +196,20 @@
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="MediaPlayerX" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="m2S-Jp-Qdl" customClass="BaseView" customModule="MediaPlayerX" customModuleProvider="target">
+                <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="Tiger" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="m2S-Jp-Qdl" customClass="BaseView" customModule="Tiger" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <openGLView wantsLayer="YES" antiAliasingType="multisample" useAuxiliaryDepthBufferStencil="NO" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="MediaPlayerX" customModuleProvider="target">
+                            <openGLView wantsLayer="YES" antiAliasingType="multisample" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="Tiger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                             </openGLView>
                             <stackView orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
-                                <rect key="frame" x="0.0" y="0.0" width="800" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="800" height="40"/>
                                 <edgeInsets key="edgeInsets" left="12" right="12" top="12" bottom="12"/>
                                 <beginningViews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4K-AG-3c7">
-                                        <rect key="frame" x="10" y="12" width="51" height="20"/>
+                                        <rect key="frame" x="10" y="12" width="51" height="16"/>
                                         <textFieldCell key="cell" enabled="NO" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="nKQ-nQ-iq5">
                                             <font key="font" size="14" name="Menlo-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -221,7 +222,7 @@
                                 </beginningViews>
                                 <middleViews>
                                     <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7IJ-hL-2Of">
-                                        <rect key="frame" x="69" y="13" width="662" height="19"/>
+                                        <rect key="frame" x="69" y="11" width="662" height="19"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="lSo-7N-DRc"/>
                                         <connections>
                                             <action selector="seekWithSender:" target="XfG-lQ-9wD" id="VEz-QQ-bYk"/>
@@ -230,7 +231,7 @@
                                 </middleViews>
                                 <endViews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5l5-Yo-idS">
-                                        <rect key="frame" x="739" y="12" width="51" height="20"/>
+                                        <rect key="frame" x="739" y="12" width="51" height="16"/>
                                         <textFieldCell key="cell" enabled="NO" allowsUndo="NO" alignment="center" title="Label" usesSingleLineMode="YES" id="gyj-Ts-oki">
                                             <font key="font" size="14" name="Menlo-Regular"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -253,7 +254,7 @@
                                 </customSpacing>
                             </stackView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FQ-fb-Rv4">
-                                <rect key="frame" x="630" y="431" width="152" height="29"/>
+                                <rect key="frame" x="630" y="432" width="152" height="28"/>
                                 <textFieldCell key="cell" enabled="NO" refusesFirstResponder="YES" allowsUndo="NO" alignment="center" title="InfoTextView" usesSingleLineMode="YES" id="bDg-s9-mbB">
                                     <font key="font" metaFont="systemBold" size="24"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -313,7 +314,7 @@
         <!--Prefs View Controller-->
         <scene sceneID="lgG-Yr-8Sp">
             <objects>
-                <viewController id="VzB-vj-emd" customClass="PrefsViewController" customModule="MediaPlayerX" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VzB-vj-emd" customClass="PrefsViewController" customModule="Tiger" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="nXr-jM-Qdk">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
