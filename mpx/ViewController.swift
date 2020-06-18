@@ -16,7 +16,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var mCurrentPosition: NSTextField!
     @IBOutlet weak var mTotalDuration: NSTextField!
     @IBOutlet weak var mPositionSlider: NSSlider!
-    @IBOutlet weak var mInfoText: NSTextField!
+
     
     var mPrefs = Preferences()
     
@@ -26,7 +26,7 @@ class ViewController: NSViewController {
     var mShowTime : Date?
     let mShowInterval : Double = 5
 
-    var mNativePLayer = NativePlayer()
+    var mTiger = Tiger()
     
     func formatTime(seconds : Double) -> String {
         let _seconds = Int64(seconds)
@@ -44,6 +44,10 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         NSLog("View Did Load")
         
+        // set background color
+        self.view.wantsLayer = true;
+        self.view.layer?.backgroundColor = NSColor.black.cgColor
+        
         mPrefs.show()
         
         // setup OpenGL Context
@@ -54,7 +58,7 @@ class ViewController: NSViewController {
         self.view.window?.isMovableByWindowBackground = true
         
         // show UI at beginning
-        showUI(visible: true)
+        showUI(visible: false)
     }
     
     override func viewWillDisappear() {
@@ -83,14 +87,14 @@ class ViewController: NSViewController {
     }
     
     func updateUI() {
-        let current = mNativePLayer.currentPosition
-        let duration = mNativePLayer.duration
+        let current = mTiger.currentPosition
+        let duration = mTiger.duration
         
         mCurrentPosition.stringValue = formatTime(seconds: current)
         mTotalDuration.stringValue = formatTime(seconds: duration)
         
         // only update slider when playing
-        if (mNativePLayer.isPlaying) {
+        if (mTiger.isPlaying) {
             mPositionSlider.doubleValue = mPositionSlider.maxValue * (current / duration)
         }
     }
@@ -101,13 +105,6 @@ class ViewController: NSViewController {
 
             self.view.window?.titleVisibility = NSWindow.TitleVisibility.visible
             mPositionStack.isHidden = false
-            
-            if (mNativePLayer.isOpenGL == true) {
-                mInfoText.isHidden = false
-                mInfoText.stringValue = "OpenGL"
-            } else {
-                mInfoText.isHidden = true
-            }
             
             updateUIOnce(title: nil)
             mShowTime = Date()
@@ -132,7 +129,6 @@ class ViewController: NSViewController {
             NSLog("hideUI...")
             self.view.window?.titleVisibility = NSWindow.TitleVisibility.hidden
             mPositionStack.isHidden = true
-            mInfoText.isHidden = true
             
             mUpdater?.invalidate()
             mUpdater = nil
@@ -144,10 +140,8 @@ class ViewController: NSViewController {
     public func openFile(url : String) {
         NSLog("url = %@", url)
         
-        closeFile()
-        mNativePLayer.setup(url: url)
-        mNativePLayer.prepare(seconds: 0)
-        mNativePLayer.startOrPause()
+        let openGLContext = mOpenGLView.openGLContext?.cglContextObj
+        mTiger.setup(url: url, openGL : openGLContext)
         
         // show ui
         showUI(visible: true)
@@ -158,6 +152,7 @@ class ViewController: NSViewController {
         
         let url = NSDocumentController.shared.urlsFromRunningOpenPanel()
         if (url != nil) {
+            self.view.window?.title = url![0].lastPathComponent
             openFile(url: url![0].path)
         } else {
             NSLog("Cancel Open File...")
@@ -165,7 +160,7 @@ class ViewController: NSViewController {
     }
     
     func closeFile() {
-        mNativePLayer.clear()
+        mTiger.clear()
     }
     
     override func keyDown(with event: NSEvent) {
@@ -173,11 +168,15 @@ class ViewController: NSViewController {
         
         let special = event.specialKey;
         if (special != nil) {
+            if (!event.modifierFlags.isEmpty) {
+                return
+            }
+            
             switch (special) {
             case NSEvent.SpecialKey.rightArrow:
-                mNativePLayer.prepare(seconds: mNativePLayer.currentPosition + 5)
+                mTiger.prepare(seconds: mTiger.currentPosition + 5)
             case NSEvent.SpecialKey.leftArrow:
-                mNativePLayer.prepare(seconds: mNativePLayer.currentPosition - 5)
+                mTiger.prepare(seconds: mTiger.currentPosition - 5)
             default:
                 break;
             }
@@ -187,7 +186,7 @@ class ViewController: NSViewController {
             case "o":
                 openFile()
             case " ":
-                mNativePLayer.startOrPause()
+                mTiger.startOrPause()
             case "q":
                 closeFile()
             default:
@@ -200,7 +199,11 @@ class ViewController: NSViewController {
     }
     
     override func mouseDown(with event: NSEvent) {
-        showUI(visible: true)
+        if (event.clickCount > 1) {
+            self.view.window?.toggleFullScreen(self);
+        } else {
+            showUI(visible: true)
+        }
     }
     
     // move window by background
@@ -217,9 +220,9 @@ class ViewController: NSViewController {
     }
     
     @IBAction func seek(sender : Any) {
-        let sec = mNativePLayer.duration * mPositionSlider.doubleValue / mPositionSlider.maxValue;
+        let sec = mTiger.duration * mPositionSlider.doubleValue / mPositionSlider.maxValue;
         NSLog("seek to %@", sec)
-        mNativePLayer.prepare(seconds: sec)
+        mTiger.prepare(seconds: sec)
         showUI(visible: true)
     }
 }

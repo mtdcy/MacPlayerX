@@ -10,17 +10,17 @@ import Foundation
 import Cocoa
 
 protocol PlayerProtocol {
-    func currentPosition(_ player : NativePlayer)
+    func currentPosition(_ player : Tiger)
 }
 
 // https://stackoverflow.com/questions/40014717/swift-3-cannot-recognize-the-macro-function
 // complex macros are not available in swift
 
-class NativePlayer : NSObject {
+class Tiger : NSObject {
     //var mDelegate : PlayerProtocol?
     
     var mLooper : LooperObjectRef?
-    var mHandle : MediaPlayerRef?
+    var mTiger : MediaPlayerRef?
     var mClock : MediaClockRef?
     var mMediaOut : MediaOutRef?
     var mFileInfo : SharedObjectRef?
@@ -30,6 +30,7 @@ class NativePlayer : NSObject {
     
     var mIsVideoToolboxEnabled : Bool = false   // kInfoVideoToolboxEnabled
     var mIsPlaying : Bool = false
+    let mUsingSystemLog : Bool = false
     
     var isOpenGL : Bool {
         return mIsVideoToolboxEnabled;
@@ -50,7 +51,7 @@ class NativePlayer : NSObject {
         if (mFileInfo == nil) {
             return 0
         }
-        return Double(MessageObjectGetInt64(mFileInfo, kKeyDuration, 0)) / 1E6
+        return Double(MessageObjectGetInt64(mFileInfo, UInt32(kKeyDuration), 0)) / 1E6
     }
     
     func onPlayerInfo(info : ePlayerInfoType, payload : MessageObjectRef?) {
@@ -60,6 +61,7 @@ class NativePlayer : NSObject {
             NSLog("player is ready")
             assert(payload != nil)
             mFileInfo = SharedObjectRetain(payload)
+            startOrPause()
         case kInfoPlayerPlaying:
             mIsPlaying = true
         case kInfoPlayerPaused, kInfoEndOfFile:
@@ -87,10 +89,10 @@ class NativePlayer : NSObject {
             let format  = MessageObjectCreate();
             let options = MessageObjectCreate();
             
-            MessageObjectPutInt32(format, kKeyFormat, Int32(imageFormat.pointee.format.rawValue))
-            MessageObjectPutInt32(format, kKeyWidth, imageFormat.pointee.width)
-            MessageObjectPutInt32(format, kKeyHeight, imageFormat.pointee.height)
-            MessageObjectPutInt32(format, kKeyCodecType, Int32(kCodecTypeVideo.rawValue));
+            MessageObjectPutInt32(format, UInt32(kKeyFormat), Int32(imageFormat.pointee.format))
+            MessageObjectPutInt32(format, UInt32(kKeyWidth), imageFormat.pointee.width)
+            MessageObjectPutInt32(format, UInt32(kKeyHeight), imageFormat.pointee.height)
+            MessageObjectPutInt32(format, UInt32(kKeyType), Int32(kCodecTypeVideo));
             
             mMediaOut = MediaOutCreate(format, options);
                         
@@ -136,15 +138,17 @@ class NativePlayer : NSObject {
     
     override init() {
         NSLog("NativePlayer init")
-        // setup log callback
-        // https://originware.com/blog/?p=265
-        LogSetCallback { (line : UnsafePointer<Int8>?) in
-            // print won't send to syslog
-            NSLog(String.init(cString: line!))
+        if (mUsingSystemLog) {
+            // setup log callback
+            // https://originware.com/blog/?p=265
+            LogSetCallback { (line : UnsafePointer<Int8>?) in
+                // print won't send to syslog
+                NSLog(String.init(cString: line!))
+            }
         }
     }
     
-    public func setup(url : String) {
+    public func setup(url : String, openGL : CGLContextObj?) {
         NSLog("setup")
 
         clear()
@@ -155,37 +159,42 @@ class NativePlayer : NSObject {
         let media : MessageObjectRef    = MessageObjectCreate()
         let options : MessageObjectRef  = MessageObjectCreate()
         
-        MessageObjectPutString(media, "url", url)
+        MessageObjectPutString(media, UInt32(kKeyURL), url)
         
         let OnInfoUpdate : PlayerInfoEventRef = PlayerInfoEventCreate(
             mLooper,    // LooperObjectRef
             // PlayerInfoCallback
         {
             (info : ePlayerInfoType, payload : MessageObjectRef?, user : UnsafeMutableRawPointer?) in
-            let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
+            let context : Tiger = Unmanaged.fromOpaque(user!).takeUnretainedValue()
             context.onPlayerInfo(info: info, payload: payload)
         },
         Unmanaged.passUnretained(self).toOpaque()   // user context
         )
-        MessageObjectPutObject(options, "PlayerInfoEvent", OnInfoUpdate)
+        MessageObjectPutObject(options, UInt32(kKeyPlayerInfoEvent), OnInfoUpdate)
         SharedObjectRelease(OnInfoUpdate)
 
-        // MediaFrame Callback
-        let OnVideoUpdate : FrameEventRef = FrameEventCreate(
-            mLooper,
-        {
-            (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
-            let context : NativePlayer = Unmanaged.fromOpaque(user!).takeUnretainedValue()
-            context.onVideoUpdate(current: current)
-        }, Unmanaged.passUnretained(self).toOpaque())
-        MessageObjectPutObject(media, "VideoFrameEvent", OnVideoUpdate)
-        SharedObjectRelease(OnVideoUpdate)
+        if (openGL == nil) {// MediaFrame Callback
+            let OnVideoUpdate : FrameEventRef = FrameEventCreate(
+                mLooper,
+            {
+                (current : MediaFrameRef?, user : UnsafeMutableRawPointer?) in
+                let context : Tiger = Unmanaged.fromOpaque(user!).takeUnretainedValue()
+                context.onVideoUpdate(current: current)
+            },
+            Unmanaged.passUnretained(self).toOpaque()   // user context
+            )
+            MessageObjectPutObject(media, UInt32(kKeyVideoFrameEvent), OnVideoUpdate)
+            SharedObjectRelease(OnVideoUpdate)
+        } else {
+            MessageObjectPutPointer(options, UInt32(kKeyOpenGLContext), openGL)
+        }
         
         NSLog("MediaPlayerCreate")
-        mHandle = MediaPlayerCreate(media, options)
-        assert(mHandle != nil)
+        mTiger = MediaPlayerCreate(media, options)
+        assert(mTiger != nil)
         
-        mClock  = MediaPlayerGetClock(mHandle)
+        mClock  = MediaPlayerGetClock(mTiger)
         assert(mClock != nil)
         
         // release refs
@@ -194,21 +203,21 @@ class NativePlayer : NSObject {
     }
     
     public func prepare(seconds : Double) {
-        if (mHandle != nil) {
+        if (mTiger != nil) {
             NSLog("MediaPlayerPrepare")
-            MediaPlayerPrepare(mHandle, Int64(seconds * 1E6))
+            MediaPlayerPrepare(mTiger, Int64(seconds * 1E6))
         }
     }
     
     public func startOrPause() -> Bool {
-        if (mHandle != nil) {
+        if (mTiger != nil) {
             if (isPlaying == true) {
                 NSLog("MediaPlayerPause")
-                MediaPlayerPause(mHandle)
+                MediaPlayerPause(mTiger)
                 return false
             } else {
                 NSLog("MediaPlayerStart")
-                MediaPlayerStart(mHandle)
+                MediaPlayerStart(mTiger)
                 return true
             }
         }
@@ -216,10 +225,13 @@ class NativePlayer : NSObject {
     }
     
     public func clear() {
-        if (mHandle != nil) {
+        mIsPlaying = false;
+        mIsVideoToolboxEnabled = false;
+        
+        if (mTiger != nil) {
             NSLog("MediaPlayerRelease");
-            SharedObjectRelease(mHandle)
-            mHandle = nil
+            SharedObjectRelease(mTiger)
+            mTiger = nil
         }
         
         if (mClock != nil) {

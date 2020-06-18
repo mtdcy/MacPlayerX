@@ -201,7 +201,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <openGLView wantsLayer="YES" antiAliasingType="multisample" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="Tiger" customModuleProvider="target">
+                            <openGLView wantsLayer="YES" samplingRate="4" useAuxiliaryDepthBufferStencil="NO" useDoubleBufferingEnabled="YES" allowOffline="YES" wantsBestResolutionOpenGLSurface="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QoL-sp-Oe8" customClass="OpenGLView" customModule="Tiger" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="800" height="480"/>
                             </openGLView>
                             <stackView orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOd-xN-KVB">
@@ -253,23 +253,12 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FQ-fb-Rv4">
-                                <rect key="frame" x="630" y="432" width="152" height="28"/>
-                                <textFieldCell key="cell" enabled="NO" refusesFirstResponder="YES" allowsUndo="NO" alignment="center" title="InfoTextView" usesSingleLineMode="YES" id="bDg-s9-mbB">
-                                    <font key="font" metaFont="systemBold" size="24"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="0ZK-0I-nKt"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="7Hj-JM-Ncf"/>
                             <constraint firstItem="bOd-xN-KVB" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="Lpp-ZF-Xnr"/>
-                            <constraint firstAttribute="trailing" secondItem="4FQ-fb-Rv4" secondAttribute="trailing" constant="20" symbolic="YES" id="Uod-Hj-s7Z"/>
                             <constraint firstItem="bOd-xN-KVB" firstAttribute="trailing" secondItem="m2S-Jp-Qdl" secondAttribute="trailing" id="V4j-kt-ZX4"/>
                             <constraint firstItem="bOd-xN-KVB" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="V82-Z6-1M8"/>
-                            <constraint firstItem="4FQ-fb-Rv4" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="YDx-e4-TCz"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="bottom" secondItem="m2S-Jp-Qdl" secondAttribute="bottom" id="esR-Cs-tzN"/>
                             <constraint firstItem="QoL-sp-Oe8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="fjJ-4V-dpH"/>
                             <constraint firstItem="bOd-xN-KVB" firstAttribute="top" relation="greaterThanOrEqual" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="g4w-t4-3dp"/>
@@ -279,7 +268,6 @@
                     <connections>
                         <outlet property="mBaseView" destination="m2S-Jp-Qdl" id="4JT-dR-4AB"/>
                         <outlet property="mCurrentPosition" destination="D4K-AG-3c7" id="Jis-lD-G04"/>
-                        <outlet property="mInfoText" destination="4FQ-fb-Rv4" id="Rl1-ns-NaM"/>
                         <outlet property="mOpenGLView" destination="QoL-sp-Oe8" id="quB-dc-VrU"/>
                         <outlet property="mPositionSlider" destination="7IJ-hL-2Of" id="tdH-Py-02L"/>
                         <outlet property="mPositionStack" destination="bOd-xN-KVB" id="ihu-A8-9aI"/>

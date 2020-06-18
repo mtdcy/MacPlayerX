@@ -21,9 +21,7 @@
 		57F3159F22608D1A000D6B77 /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159822608D1A000D6B77 /* OpenGLView.swift */; };
 		57F315A022608D1A000D6B77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159922608D1A000D6B77 /* BaseView.swift */; };
 		57F315A122608D1A000D6B77 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		57F315A222608D1A000D6B77 /* NativePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159B22608D1A000D6B77 /* NativePlayer.swift */; };
-		743F3D982488A50F00D8CE84 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D972488A50F00D8CE84 /* SDL2.framework */; };
-		743F3D992488A50F00D8CE84 /* SDL2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D972488A50F00D8CE84 /* SDL2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57F315A222608D1A000D6B77 /* Tiger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159B22608D1A000D6B77 /* Tiger.swift */; };
 		743F3D9B2488AE1E00D8CE84 /* FFmpegStatic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */; };
 		743F3D9C2488AE1E00D8CE84 /* FFmpegStatic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -37,7 +35,6 @@
 			files = (
 				5750AA782262F21F00A956D9 /* ABE.framework in Embed Frameworks */,
 				5750AA7A2262F21F00A956D9 /* MediaFramework.framework in Embed Frameworks */,
-				743F3D992488A50F00D8CE84 /* SDL2.framework in Embed Frameworks */,
 				743F3D9C2488AE1E00D8CE84 /* FFmpegStatic.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -60,7 +57,7 @@
 		57F3159722608D1A000D6B77 /* PrefsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
 		57F3159822608D1A000D6B77 /* OpenGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		57F3159922608D1A000D6B77 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		57F3159B22608D1A000D6B77 /* NativePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativePlayer.swift; sourceTree = "<group>"; };
+		57F3159B22608D1A000D6B77 /* Tiger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tiger.swift; sourceTree = "<group>"; };
 		57F3159C22608D1A000D6B77 /* mpx-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mpx-Bridging-Header.h"; sourceTree = "<group>"; };
 		743F3D972488A50F00D8CE84 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FFmpegStatic.framework; path = ../../Library/Frameworks/FFmpegStatic.framework; sourceTree = "<group>"; };
@@ -73,7 +70,6 @@
 			files = (
 				576334A72261AA300059C5B6 /* MediaFramework.framework in Frameworks */,
 				576334A82261AA300059C5B6 /* ABE.framework in Frameworks */,
-				743F3D982488A50F00D8CE84 /* SDL2.framework in Frameworks */,
 				743F3D9B2488AE1E00D8CE84 /* FFmpegStatic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,7 +114,7 @@
 				5750AA582262C2BB00A956D9 /* Preferences.swift */,
 				57F3159922608D1A000D6B77 /* BaseView.swift */,
 				57F3159C22608D1A000D6B77 /* mpx-Bridging-Header.h */,
-				57F3159B22608D1A000D6B77 /* NativePlayer.swift */,
+				57F3159B22608D1A000D6B77 /* Tiger.swift */,
 				57F3159822608D1A000D6B77 /* OpenGLView.swift */,
 				57F3159722608D1A000D6B77 /* PrefsViewController.swift */,
 				57F3158022608C98000D6B77 /* Assets.xcassets */,
@@ -201,7 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57F3159D22608D1A000D6B77 /* (null) in Sources */,
-				57F315A222608D1A000D6B77 /* NativePlayer.swift in Sources */,
+				57F315A222608D1A000D6B77 /* Tiger.swift in Sources */,
 				57F3157F22608C98000D6B77 /* ViewController.swift in Sources */,
 				57F3157D22608C98000D6B77 /* AppDelegate.swift in Sources */,
 				57F315A022608D1A000D6B77 /* BaseView.swift in Sources */,
@@ -277,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -333,7 +329,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -362,6 +358,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtdcy.mpx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -388,6 +385,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtdcy.mpx;
 				PRODUCT_NAME = "$(TARGET_NAME)";
