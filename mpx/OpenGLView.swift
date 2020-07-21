@@ -15,14 +15,14 @@ class OpenGLView: NSOpenGLView {
         super.draw(dirtyRect)
     }
     
-    override var acceptsFirstResponder : Bool {
+    override var acceptsFirstResponder : Swift.Bool {
         get {
             return true
         }
     }
     
     // not working but still put this
-    override var mouseDownCanMoveWindow : Bool {
+    override var mouseDownCanMoveWindow : Swift.Bool {
         get {
             return false
         }

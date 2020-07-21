@@ -5,6 +5,6 @@
 
 // http://andelf.github.io/blog/2014/06/15/swift-and-c-interop/
 
-#define LOG_TAG "mpx.swift"
+#define LOG_TAG "YUVPlayer"
 #include <ABE/ABE.h>
 #include <MediaFramework/MediaFramework.h>

@@ -8,10 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5750AA592262C2BB00A956D9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750AA582262C2BB00A956D9 /* Preferences.swift */; };
-		5750AA782262F21F00A956D9 /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5750AA7A2262F21F00A956D9 /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		576334A72261AA300059C5B6 /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; };
-		576334A82261AA300059C5B6 /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; };
+		57DD15AA24BC467600DB671F /* ABE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; };
+		57DD15AB24BC467600DB671F /* ABE.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A52261AA300059C5B6 /* ABE.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57DD15AC24BC467600DB671F /* FFmpegStatic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */; };
+		57DD15AD24BC467600DB671F /* FFmpegStatic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		57DD15AE24BC467600DB671F /* MediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; };
+		57DD15AF24BC467600DB671F /* MediaFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 576334A42261AA300059C5B6 /* MediaFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		57F3157D22608C98000D6B77 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157C22608C98000D6B77 /* AppDelegate.swift */; };
 		57F3157F22608C98000D6B77 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3157E22608C98000D6B77 /* ViewController.swift */; };
 		57F3158122608C98000D6B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F3158022608C98000D6B77 /* Assets.xcassets */; };
@@ -22,20 +24,18 @@
 		57F315A022608D1A000D6B77 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159922608D1A000D6B77 /* BaseView.swift */; };
 		57F315A122608D1A000D6B77 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		57F315A222608D1A000D6B77 /* Tiger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3159B22608D1A000D6B77 /* Tiger.swift */; };
-		743F3D9B2488AE1E00D8CE84 /* FFmpegStatic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */; };
-		743F3D9C2488AE1E00D8CE84 /* FFmpegStatic.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 743F3D9A2488AE1E00D8CE84 /* FFmpegStatic.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		57F315A922609055000D6B77 /* Embed Frameworks */ = {
+		57DD15B024BC467700DB671F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				5750AA782262F21F00A956D9 /* ABE.framework in Embed Frameworks */,
-				5750AA7A2262F21F00A956D9 /* MediaFramework.framework in Embed Frameworks */,
-				743F3D9C2488AE1E00D8CE84 /* FFmpegStatic.framework in Embed Frameworks */,
+				57DD15AB24BC467600DB671F /* ABE.framework in Embed Frameworks */,
+				57DD15AF24BC467600DB671F /* MediaFramework.framework in Embed Frameworks */,
+				57DD15AD24BC467600DB671F /* FFmpegStatic.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 1;
@@ -47,6 +47,9 @@
 		576334A32261AA300059C5B6 /* FFmpeg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FFmpeg.framework; path = ../../Library/Frameworks/FFmpeg.framework; sourceTree = "<group>"; };
 		576334A42261AA300059C5B6 /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaFramework.framework; path = ../../Library/Frameworks/MediaFramework.framework; sourceTree = "<group>"; };
 		576334A52261AA300059C5B6 /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ABE.framework; path = ../../Library/Frameworks/ABE.framework; sourceTree = "<group>"; };
+		57B36C2124BC421100544D9D /* FFmpegStatic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FFmpegStatic.framework; sourceTree = "<group>"; };
+		57B36C2224BC421100544D9D /* MediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MediaFramework.framework; sourceTree = "<group>"; };
+		57B36C2324BC421100544D9D /* ABE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ABE.framework; sourceTree = "<group>"; };
 		57F3157922608C98000D6B77 /* Tiger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tiger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F3157C22608C98000D6B77 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		57F3157E22608C98000D6B77 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,9 +71,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				576334A72261AA300059C5B6 /* MediaFramework.framework in Frameworks */,
-				576334A82261AA300059C5B6 /* ABE.framework in Frameworks */,
-				743F3D9B2488AE1E00D8CE84 /* FFmpegStatic.framework in Frameworks */,
+				57DD15AA24BC467600DB671F /* ABE.framework in Frameworks */,
+				57DD15AE24BC467600DB671F /* MediaFramework.framework in Frameworks */,
+				57DD15AC24BC467600DB671F /* FFmpegStatic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +95,9 @@
 		57F3157022608C98000D6B77 = {
 			isa = PBXGroup;
 			children = (
+				57B36C2324BC421100544D9D /* ABE.framework */,
+				57B36C2124BC421100544D9D /* FFmpegStatic.framework */,
+				57B36C2224BC421100544D9D /* MediaFramework.framework */,
 				57F3157B22608C98000D6B77 /* mpx */,
 				57F3157A22608C98000D6B77 /* Products */,
 				576334A22261AA2F0059C5B6 /* Frameworks */,
@@ -135,7 +141,7 @@
 				57F3157522608C98000D6B77 /* Sources */,
 				57F3157622608C98000D6B77 /* Frameworks */,
 				57F3157722608C98000D6B77 /* Resources */,
-				57F315A922609055000D6B77 /* Embed Frameworks */,
+				57DD15B024BC467700DB671F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

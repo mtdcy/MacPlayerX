@@ -15,7 +15,7 @@ class Preferences {
         UserDefaults.standard.register(defaults: ["openGL" : true])
     }
     
-    var usingOpenGL : Bool {
+    var usingOpenGL : Swift.Bool {
         get {
             let openGL = UserDefaults.standard.bool(forKey: "openGL")
             return openGL

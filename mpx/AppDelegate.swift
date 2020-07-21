@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
-    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
+    func application(_ sender: NSApplication, openFile filename: String) -> Swift.Bool {
         NSLog("open File: %@", filename)
 
         let viewController = NSApplication.shared.mainWindow?.contentViewController as? ViewController

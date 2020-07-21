@@ -20,7 +20,7 @@ class ViewController: NSViewController {
     
     var mPrefs = Preferences()
     
-    var mIsVisible : Bool?              // true, false, nil
+    var mIsVisible : Swift.Bool?              // true, false, nil
     var mUpdater : Timer?
     let mUpdateInterval : Double = 0.2
     var mShowTime : Date?
@@ -99,7 +99,7 @@ class ViewController: NSViewController {
         }
     }
     
-    func showUI(visible : Bool) {
+    func showUI(visible : Swift.Bool) {
         if (visible) {
             NSLog("showUI...");
 

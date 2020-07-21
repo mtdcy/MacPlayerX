@@ -22,21 +22,21 @@ class Tiger : NSObject {
     var mLooper : LooperObjectRef?
     var mTiger : MediaPlayerRef?
     var mClock : MediaClockRef?
-    var mMediaOut : MediaOutRef?
+    var mMediaOut : MediaDeviceRef?
     var mFileInfo : SharedObjectRef?
     
     var mLock : NSLock = NSLock()
     var mMediaFrame : MediaFrameRef?
     
-    var mIsVideoToolboxEnabled : Bool = false   // kInfoVideoToolboxEnabled
-    var mIsPlaying : Bool = false
-    let mUsingSystemLog : Bool = false
+    var mIsVideoToolboxEnabled : Swift.Bool = false   // kInfoVideoToolboxEnabled
+    var mIsPlaying : Swift.Bool = false
+    let mUsingSystemLog : Swift.Bool = false
     
-    var isOpenGL : Bool {
+    var isOpenGL : Swift.Bool {
         return mIsVideoToolboxEnabled;
     }
     
-    var isPlaying : Bool {
+    var isPlaying : Swift.Bool {
         return mIsPlaying
     }
     
@@ -78,7 +78,7 @@ class Tiger : NSObject {
         guard mMediaFrame != nil else {
             NSLog("nil MediaFrame")
             if (mMediaOut != nil) {
-                MediaOutFlush(mMediaOut)
+                MediaDeviceReset(mMediaOut)
             }
             mLock.unlock()
             return
@@ -94,7 +94,7 @@ class Tiger : NSObject {
             MessageObjectPutInt32(format, UInt32(kKeyHeight), imageFormat.pointee.height)
             MessageObjectPutInt32(format, UInt32(kKeyType), Int32(kCodecTypeVideo));
             
-            mMediaOut = MediaOutCreate(format, options);
+            mMediaOut = MediaDeviceCreate(format, options);
                         
             if (imageFormat.pointee.format == kPixelFormatVideoToolbox) {
                 mIsVideoToolboxEnabled = true;
@@ -106,7 +106,7 @@ class Tiger : NSObject {
             SharedObjectRelease(options)
         }
         
-        MediaOutWrite(mMediaOut, mMediaFrame)
+        MediaDevicePush(mMediaOut, mMediaFrame)
         mLock.unlock()
     }
     
@@ -209,7 +209,7 @@ class Tiger : NSObject {
         }
     }
     
-    public func startOrPause() -> Bool {
+    public func startOrPause() -> Swift.Bool {
         if (mTiger != nil) {
             if (isPlaying == true) {
                 NSLog("MediaPlayerPause")
@@ -245,7 +245,7 @@ class Tiger : NSObject {
         }
         
         if (mMediaOut != nil) {
-            MediaOutFlush(mMediaOut)
+            MediaDeviceReset(mMediaOut)
             SharedObjectRelease(mMediaOut)
             mMediaOut = nil
         }
